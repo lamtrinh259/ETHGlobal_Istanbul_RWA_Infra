@@ -34,7 +34,7 @@ contract Shop is
     }
 
     function mint(address to, string memory tokenUri) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
+        uint256 tokenId = ++_nextTokenId;
         _safeMint(to, tokenId);
         tokenURIs[tokenId] = tokenUri;
     }
