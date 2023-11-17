@@ -34,16 +34,22 @@ export function Header(props: Props) {
   const { isOpen, onToggle } = useDisclosure();
   return (
     <Flex
-      as="header"
+      // as="header"
+      zIndex={1000}
       className={className}
       color={useColorModeValue("gray.700", "gray.200")}
+      borderRadius="96px"
+      border={"1px solid #FFF"}
+      background="rgba(255, 255, 255, 0.13)"
+      backdropFilter={"blur(72.80000305175781px)"}
       opacity={1}
-      px={4}
-      py={2}
+      px={1}
+      py={1}
       mb={8}
-      //pos="fixed"
-      pos="sticky"
-      w="full"
+      top={4}
+      marginX={"16px"}
+      pos="absolute"
+      w="calc(100% - 32px)"
       alignItems="center"
     >
       <Flex flex={{ base: 2 }} justify={{ base: "center", md: "start" }}>
@@ -60,14 +66,14 @@ export function Header(props: Props) {
         >
           <Logo />
         </Link>
-        <Flex display={{ base: "none", md: "flex" }} ml={10}>
+        {/* <Flex display={{ base: "none", md: "flex" }} ml={10}>
           <DesktopNav />
-        </Flex>
+        </Flex> */}
       </Flex>
 
       <Spacer />
 
-      <Flex alignItems="center" gap={4}>
+      <Flex alignItems="center" gap={4} mr={4}>
         <ConnectButton
           accountStatus={{
             smallScreen: "address",

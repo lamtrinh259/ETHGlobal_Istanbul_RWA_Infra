@@ -1,33 +1,35 @@
 import '@rainbow-me/rainbowkit/styles.css'
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { ReactNode } from 'react'
 import { infuraProvider } from 'wagmi/providers/infura'
-import { NETWORKS, INFURA_KEY, SITE_NAME } from '../configuration/Config'
+import { NETWORKS, INFURA_KEY, SITE_NAME, PROJECT_ID } from '../configuration/Config'
 import React from 'react'
+import { createClient } from 'viem'
 
 
 interface Props {
   children: ReactNode
 }
 
-const { chains, provider } = configureChains(NETWORKS, [infuraProvider({ apiKey: INFURA_KEY }), publicProvider()])
+const { chains, publicClient  } = configureChains(NETWORKS, [infuraProvider({ apiKey: INFURA_KEY }), publicProvider()])
 
 const { connectors } = getDefaultWallets({
   appName: SITE_NAME,
+  projectId: PROJECT_ID,
   chains,
 })
 
-const client = createClient({
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider,
+  publicClient
 })
 
 export function Web3Provider(props: Props) {
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider modalSize="compact" coolMode chains={chains}>
         {props.children}
       </RainbowKitProvider>

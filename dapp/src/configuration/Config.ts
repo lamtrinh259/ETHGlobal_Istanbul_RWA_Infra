@@ -1,7 +1,8 @@
 import { ThemingProps } from '@chakra-ui/react'
-import { mainnet, goerli, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
+import { mainnet, goerli, sepolia, polygon, optimism, arbitrum } from 'viem/chains'
 
-export const SITE_NAME = 'DappBoilerplate'
+export const SITE_NAME = 'AssetFuse'
+export const PROJECT_ID = '5f7aafd09a6666791de420f9025324fc'
 export const SITE_DESCRIPTION = 'Ready to Use Dapp Boilerplate'
 export const SITE_URL = 'https://dappboilerplate.vercel.app'
 

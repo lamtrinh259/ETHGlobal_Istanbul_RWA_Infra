@@ -13,8 +13,8 @@ export const Logo = (props: any) => {
     <HStack>
       <>
         <Image
-          width={8}
-          height={8}
+          width={12}
+          height={12}
           alt={"Login Image"}
           objectFit={"cover"}
           src={"/logo.png"}
