@@ -9,8 +9,8 @@ contract ShopTest is Test {
     address public owner;
 
     function setUp() public {
-        shop = new Shop(msg.sender);
         owner = msg.sender;
+        shop = new Shop(owner);
     }
 
     function test_mint() public {
