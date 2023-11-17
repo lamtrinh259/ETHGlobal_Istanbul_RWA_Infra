@@ -25,10 +25,17 @@ contract Marketplace is Ownable, IERC721Receiver {
         address seller;
         PurchaseTokenInfo tokenInfo;
         NFTInfo nftInfo;
+        uint256 expiresAt;
     }
 
     // Mappings
     mapping(uint256 => Offer) public offers;
+
+    // Other variables
+
+    // The fee percentage that the marketplace takes from each sale
+    // 2 decimals of precision, so 500 = 5%
+    uint256 public marketplaceFee = 500;
 
     // Events
     event OfferCreated(
@@ -47,10 +54,24 @@ contract Marketplace is Ownable, IERC721Receiver {
     constructor(address initialOwner) Ownable(initialOwner) {}
 
     function createOffer(
-        uint256 offerId,
         PurchaseTokenInfo memory tokenInfo,
-        NFTInfo memory nftInfo
-    ) external {
+        NFTInfo memory nftInfo,
+        uint256 expiresAt
+    ) external returns (uint256) {
+        // Generate the offer ID by hashing the offer details
+        uint256 offerId = uint256(
+            keccak256(
+                abi.encodePacked(
+                    msg.sender,
+                    tokenInfo.amount,
+                    tokenInfo.tokenAddress,
+                    nftInfo.nftAddress,
+                    nftInfo.tokenId,
+                    expiresAt
+                )
+            )
+        );
+
         // Check that the offer doesn't already exist
         require(offers[offerId].seller == address(0), "Offer already exists");
         // Check that the token address is valid
@@ -69,13 +90,16 @@ contract Marketplace is Ownable, IERC721Receiver {
         offers[offerId] = Offer({
             seller: msg.sender,
             tokenInfo: tokenInfo,
-            nftInfo: nftInfo
+            nftInfo: nftInfo,
+            expiresAt: expiresAt
         });
 
         // Transfer the NFT from the seller's account to this contract
         nft.safeTransferFrom(msg.sender, address(this), nftInfo.tokenId);
 
         emit OfferCreated(offerId, msg.sender, tokenInfo, nftInfo);
+
+        return offerId;
     }
 
     function cancelOffer(uint256 offerId) external {
@@ -109,9 +133,18 @@ contract Marketplace is Ownable, IERC721Receiver {
         require(offer.seller != address(0), "Offer does not exist");
         // Check that the sender is not the seller
         require(offer.seller != buyer, "Seller cannot buy own offer");
+        // Check that the offer hasn't expired
+        // If the expiresAt is 0 then the offer never expires
+        require(
+            offer.expiresAt == 0 || block.timestamp < offer.expiresAt,
+            "Offer expired"
+        );
 
         IERC721 nft = IERC721(offer.nftInfo.nftAddress);
 
+        uint256 totalAmount = (offer.tokenInfo.amount *
+            (10000 + marketplaceFee)) / 10000;
+        uint256 fees = totalAmount - offer.tokenInfo.amount;
         // If the tokenAddress of the purchase token is defined then the purchase
         // is supposed to be made using this token...
         if (offer.tokenInfo.tokenAddress != address(0)) {
@@ -119,8 +152,7 @@ contract Marketplace is Ownable, IERC721Receiver {
             IERC20 purchaseToken = IERC20(offer.tokenInfo.tokenAddress);
             // Check that the smart contract can transfer the token on behalf of the buyer
             require(
-                purchaseToken.allowance(buyer, address(this)) >=
-                    offer.tokenInfo.amount,
+                purchaseToken.allowance(buyer, address(this)) >= totalAmount,
                 "Not enough tokens approved for transfer"
             );
 
@@ -131,12 +163,17 @@ contract Marketplace is Ownable, IERC721Receiver {
                 offer.seller,
                 offer.tokenInfo.amount
             );
+
+            // Transfer the fees to the owner of the marketplace
+            purchaseToken.transferFrom(buyer, owner(), fees);
         } else {
             // ...otherwise we use the native token (such as ETH on Ethereum)
-            require(msg.value == offer.tokenInfo.amount, "Wrong price");
+            require(msg.value == totalAmount, "Wrong price");
 
             // Send the native token to the seller
-            payable(seller).sendValue(msg.value);
+            payable(seller).sendValue(offer.tokenInfo.amount);
+            // Send the fees to the owner of the marketplace
+            payable(owner()).sendValue(fees);
         }
 
         // Delete the offer
@@ -155,5 +192,21 @@ contract Marketplace is Ownable, IERC721Receiver {
         bytes calldata
     ) external pure override returns (bytes4) {
         return IERC721Receiver.onERC721Received.selector;
+    }
+
+    // Admin functions
+
+    function setMarketplaceFee(uint256 fee) external onlyOwner {
+        require(fee <= 10000, "Fee cannot be greater than 100%");
+        marketplaceFee = fee;
+    }
+
+    // Read functions
+
+    function getTotalPriceForOffer(
+        uint256 offerId
+    ) external view returns (uint256) {
+        Offer memory offer = offers[offerId];
+        return (offer.tokenInfo.amount * (10000 + marketplaceFee)) / 10000;
     }
 }
