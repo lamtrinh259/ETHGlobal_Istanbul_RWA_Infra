@@ -7,3 +7,6 @@
 [submodule "contracts/lib/contracts"]
 	path = contracts/lib/contracts
 	url = https://github.com/api3dao/contracts
+[submodule "contracts/lib/airnode-protocol-v1"]
+	path = contracts/lib/airnode-protocol-v1
+	url = https://github.com/api3dao/airnode-protocol-v1
