@@ -32,10 +32,8 @@ export function TransferPay() {
   const [amount, setAmount] = React.useState("");
   const [debouncedAmount] = useDebounce(amount, 500);
   const { config } = usePrepareSendTransaction({
-    request: {
       to: debouncedTo,
-      value: debouncedAmount ? parseEther(debouncedAmount) : undefined,
-    },
+      value: debouncedAmount ? parseEther(debouncedAmount).toBigInt() : undefined,
   });
   const { data, sendTransaction } = useSendTransaction(config);
   const { isLoading, isSuccess } = useWaitForTransaction({

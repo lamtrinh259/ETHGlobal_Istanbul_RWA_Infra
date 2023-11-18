@@ -25,10 +25,10 @@ export function NetworkStatus() {
 
       {explorerUrl && (
         <LinkComponent href={explorerUrl}>
-          <Text fontSize="2xs"># {block.data}</Text>
+          <Text fontSize="2xs"># {block.data?.toString()}</Text>
         </LinkComponent>
       )}
-      {!explorerUrl && <Text fontSize="2xs"># {block.data}</Text>}
+      {!explorerUrl && <Text fontSize="2xs"># {block.data?.toString()}</Text>}
     </Flex>
   )
 }

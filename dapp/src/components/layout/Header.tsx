@@ -18,6 +18,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ChevronRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Logo } from "../../Reusables/helper";
+
 interface Props {
   className?: string;
 }

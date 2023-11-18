@@ -47,7 +47,9 @@ const Home: NextPage = () => {
           <Text my={2} fontSize="2xl">
             Bring the physical into the digital realm seamlessly
           </Text>
+
           <Button my={8}>
+            {/* <input type="file" accept="image/*" capture="user" /> */}
             Take a photo
           </Button>
           <h2>

@@ -1,6 +1,6 @@
 import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { NextPage } from "next";
-import { ItemCard } from "../components/itemCard";
+import { ItemCard } from "../components/ItemCard";
 import { ValuesForm } from "../components/ValuesForm";
 
 const Assets: NextPage = () => {
