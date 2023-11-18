@@ -21,6 +21,7 @@
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "browser-image-compression": "^2.0.2",
     "canvas-confetti": "^1.9.1",
     "ethers": "^5.7",
     "framer-motion": "^10.9.1",

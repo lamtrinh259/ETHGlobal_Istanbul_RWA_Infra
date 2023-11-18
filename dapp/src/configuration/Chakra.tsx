@@ -19,6 +19,9 @@ const theme = extendTheme({
         rounded: 'full',
         _hover: {
           bg: 'gray.700',
+        },
+        _loading: {
+          bg: 'gray.700',
         }
       },
       // 2. We can add a new button size or extend existing

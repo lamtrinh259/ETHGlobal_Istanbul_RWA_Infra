@@ -2,6 +2,9 @@ import React, { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 import { Header } from "./Header";
 import { Head } from "./Head";
+import { PushNotification } from "../PushNotification";
+
+
 interface Props {
   children: ReactNode;
 }
@@ -21,6 +24,7 @@ const confetti = {
 export function Layout(props: Props) {
   return (
     <>
+      <PushNotification />
       <Head />
       <Box
         margin="0 auto"
