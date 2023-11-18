@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { GateFiDisplayModeEnum, GateFiSDK } from '@gatefi/js-sdk'
 import { Box, Button } from "@chakra-ui/react";
+import { useWalletClient } from "wagmi";
 
 export const Unlimit = () => {
     const embedInstanceSDK = useRef<GateFiSDK | null>(null);
     const [showIframe, setShowIframe] = useState(false) // state to control iframe visibility
+    const { data: wallet } = useWalletClient();
 
     useEffect(() => {
         return () => {
@@ -21,7 +23,7 @@ export const Unlimit = () => {
                 displayMode: GateFiDisplayModeEnum.Embedded,
                 nodeSelector: "#embed-button",
                 isSandbox: true,
-                walletAddress: "0xb43Ae6CC2060e31790d5A7FDAAea828681a9bB4B",
+                walletAddress: wallet?.account.address,
                 externalId: randomString,
                 defaultFiat: {
                     currency: "USD",
@@ -36,8 +38,9 @@ export const Unlimit = () => {
     }
 
     const handleOnClickEmbed = () => {
+        console.log("handleOnClickEmbed", showIframe);
         if (showIframe) {
-            embedInstanceSDK.current?.hide();
+            embedInstanceSDK.current?.destroy();
             setShowIframe(false);
         } else {
             if (!embedInstanceSDK.current) {
@@ -47,6 +50,8 @@ export const Unlimit = () => {
             setShowIframe(true);
         }
     };
+    if (!wallet?.account) return <></>;
+
     return <Box>
         <Box id="embed-button" pos={"fixed"} top={"20vh"} left={"30vw"} />
         <Button onClick={handleOnClickEmbed}>

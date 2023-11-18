@@ -14,11 +14,15 @@ export const ValuesForm = () => {
             </Box>
             <Box flexGrow={1}>
                 <Text mb={2}>Currency</Text>
-                <Input
+                <Select
                     backgroundColor={"#D8DAF6"}
-                    placeholder="Select a currency"></Input>
+                    placeholder='Select option'>
+                    <option value='option1'>USDC</option>
+                    <option value='option2'>ETH</option>
+                </Select>
             </Box>
         </HStack>
+        <Text>$123</Text>
     </Stack>
 
 }

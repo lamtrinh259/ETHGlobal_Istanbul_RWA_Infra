@@ -1,13 +1,21 @@
-import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
+import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel, useDisclosure } from "@chakra-ui/react"
 import { useAtom } from "jotai";
 import { uploadedImgAtom } from "../../store/uploaded";
 import Link from "next/link";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { FaTag } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
+import { useRouter } from "next/router";
+import { SellModel } from "../../components/SellModel";
+import { BsStars } from "react-icons/bs";
 
 const Product = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
+    const router = useRouter();
+    const isMarket = router.query.market === "true";
+
     return <Grid w={"100vw"} h="100vh" templateColumns='repeat(2, 1fr)' gap={0}>
         <Box
             backgroundImage={uploadedImg}
@@ -16,7 +24,7 @@ const Product = () => {
         />
         <Box w={"full"} h={"full"} pos="relative" backgroundColor={"#E7E8FF"}>
             <Stack mt={"100px"} p={8} gap={4}>
-                <Link href="/assets">
+                <Link href={isMarket ? "/market" : "/assets"}>
                     <Text cursor="pointer" _hover={{ textDecoration: "underline" }}><ArrowBackIcon mr={2} />YOUR ASSETS</Text>
                 </Link>
                 <Text fontSize={"35px"}>Martha Jackson’s Mens Silver Bracelet</Text>
@@ -42,32 +50,57 @@ const Product = () => {
 
                 <Box>
                     <Text mb={2} fontWeight={"bold"}>Owned by</Text>
-                    <HStack p={"9px"}
-                        borderRadius={"20px"}
-                        bg={"rgba(0, 8, 79, 0.05)"}
-                        w={"fit-content"}>
-                        <Image display={"inline"} src="/avatar.png" />
-                        <Text
-                        > exwhyzee.eth</Text>
+                    <HStack>
+                        <HStack
+                            py={"9px"}
+                            px={"12px"}
+                            borderRadius={"9px"}
+                            bg={"rgba(0, 8, 79, 0.05)"}
+                            w={"fit-content"}>
+                            <Image display={"inline"} src="/avatar.png" />
+                            <Text
+                            > exwhyzee.eth</Text>
+                        </HStack>
+                        <Link target="_blank" href={"/chat?account=" + "0x93a94718805d771E75383FB510fd69f0BA023A06"}>
+                            <HStack
+                                cursor={"pointer"}
+                                py={"9px"}
+                                px={"12px"}
+                                borderRadius={"9px"}
+                                bg={"transparent"}
+                                _hover={{ textDecoration: "underline" }}
+                                border={"2px solid #DBDDF6"}
+                                w={"fit-content"}>
+                                <Image display={"inline"} src="/chat.png" />
+                                <Text
+                                > Chat with Owner</Text>
+                            </HStack>
+                        </Link>
                     </HStack>
+
                 </Box>
             </Stack>
 
             <Center mt="32">
 
             </Center>
-            {/* <Box w={"full"} pos={"absolute"} bottom={0} p={8} borderTop={"1px solid #CBCCE0"}>
-                {stage !== Stage.confirm && <Button onClick={() => {
-                    setStage(stage + 1)
-                }}>Proceed</Button>}
-                {stage === Stage.confirm && <Button
-                    onClick={() => {
-                        setStage(stage + 1)
-                        router.push("/assets")
-                    }}>See your Assets</Button>}
-            </Box> */}
+            <Box w={"full"} pos={"absolute"} bottom={0} p={8} borderTop={"1px solid #CBCCE0"}>
+                {isMarket ?
+                    <HStack>
+                        <Button><BsStars /><Text ml={2}>Buy Asset</Text></Button>
+                        <Button
+                            bg={"transparent"}
+                            border={"2px solid #000"}
+                            color={"black"}
+                            _hover={{ bg: "gray.100" }}
+                        ><BsStars /><Text ml={2}>Make an Offer</Text></Button>
+                    </HStack>
+                    :
+                    <Button onClick={onOpen}>List for Sale</Button>
+                }
+            </Box>
         </Box>
-
+        <SellModel isOpen={isOpen} onClose={onClose} src={"/example-item.png"} />
     </Grid >
 }
 

@@ -4,6 +4,7 @@ export enum Stage {
     uploading = 0,
     describe,
     value,
+    mint,
     confirm
 }
 

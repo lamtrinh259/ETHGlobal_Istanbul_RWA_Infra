@@ -1,3 +1,7 @@
+- Push UI change
+- Change network (icon)
+- check other UIs
+
 > install your dependencies:
 
 ```bash

@@ -6,6 +6,7 @@ import { ConfirmForm } from "./ConfirmForm";
 import { DescribeForm } from "./DescribeForm"
 import { ValuesForm } from "./ValuesForm";
 import { useRouter } from "next/router";
+import { TokenizeForm } from "./TokenizeForm";
 
 export const ListingForm = () => {
     const [stage, setStage] = useAtom(stageAtom);
@@ -23,8 +24,9 @@ export const ListingForm = () => {
                 <Tabs w={"full"} index={stage - 1} isLazy>
                     <TabList>
                         <Tab>1. Describe</Tab>
-                        <Tab>2. Values</Tab>
-                        <Tab>3. Confirm</Tab>
+                        <Tab>2. Value</Tab>
+                        <Tab>3. Tokenize</Tab>
+                        <Tab>4. Result</Tab>
                     </TabList>
 
                     <TabPanels>
@@ -33,6 +35,9 @@ export const ListingForm = () => {
                         </TabPanel>
                         <TabPanel>
                             <ValuesForm />
+                        </TabPanel>
+                        <TabPanel>
+                            <TokenizeForm />
                         </TabPanel>
                         <TabPanel>
                             <ConfirmForm />

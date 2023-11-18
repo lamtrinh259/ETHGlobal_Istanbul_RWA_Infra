@@ -21,7 +21,8 @@ export const DescribeForm = () => {
                     <option value='option1'>Jewellery</option>
                     <option value='option2'>Watch</option>
                     <option value='option3'>Sunglass</option>
-                    <option value='option3'>Electronics</option>
+                    <option value='option4'>Electronics</option>
+                    <option value='option5'>Others</option>
                 </Select>
             </Box>
             <Box flexGrow={1}>

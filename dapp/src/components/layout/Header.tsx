@@ -14,11 +14,14 @@ import {
   Stack,
   useDisclosure,
   useBreakpointValue,
+  HStack,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ChevronRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Logo } from "../../Reusables/helper";
 import { Unlimit } from "../Unlimit";
+import { useRouter } from "next/router";
+import { HiShoppingBag } from "react-icons/hi";
 
 interface Props {
   className?: string;
@@ -34,6 +37,7 @@ interface NavItem {
 export function Header(props: Props) {
   const className = props.className ?? "";
   const { isOpen, onToggle } = useDisclosure();
+  const router = useRouter();
   return (
     <Flex
       // as="header"
@@ -56,7 +60,7 @@ export function Header(props: Props) {
     >
       <Flex flex={{ base: 2 }} justify={{ base: "center", md: "start" }}>
         <Link
-          href={"/"}
+          onClick={() => router.push("/")}
           textAlign={useBreakpointValue({ base: "center", md: "left" })}
           fontFamily={"heading"}
           color={useColorModeValue("gray.800", "white")}
@@ -74,6 +78,12 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4} mr={4}>
+        <Link onClick={() => router.push("/market")} fontSize={"large"}>
+          <HStack>
+            <HiShoppingBag />
+            <Text fontWeight={"bold"}>Marketplace</Text>
+          </HStack>
+        </Link>
         <Unlimit />
         <ConnectButton
           accountStatus={{

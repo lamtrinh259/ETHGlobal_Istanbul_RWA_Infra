@@ -13,12 +13,12 @@ const Assets: NextPage = () => {
         <Center paddingTop={"150px"} pb={16} pos={"relative"}>
             <Stack alignItems={"center"}>
                 <Text fontSize="45px" alignSelf={"center"}>
-                    Your Collection
+                    Discover Assets
                 </Text>
                 <Text fontSize="26px">
-                    Explore, manage and cherish the assets you’ve tokenized!
+                    Explore, tokenize, and own a piece of the extraordinary
                 </Text>
-                <InputGroup outline={"none"}  p={2} pos={"absolute"} bottom={-4} zIndex={1} bg="#E7E8FF" rounded={"10px"} w={"533px"} border="1px solid rgba(0, 0, 0, 0.16);" shadow={"sm"}>
+                <InputGroup outline={"none"} p={2} pos={"absolute"} bottom={-4} zIndex={1} bg="#E7E8FF" rounded={"10px"} w={"533px"} border="1px solid rgba(0, 0, 0, 0.16);" shadow={"sm"}>
                     <InputLeftElement pointerEvents='none'>
                         <SearchIcon mt={4} color='gray.300' />
                     </InputLeftElement>
@@ -26,28 +26,19 @@ const Assets: NextPage = () => {
                 </InputGroup>
             </Stack>
         </Center>
-        <Tabs
+        <Box
             minH={"100vh"}
             bg={"#E5E2FF"}
-            px={8} pt={"20px"}
-            w={"full"} isLazy variant='soft-rounded' colorScheme='gray'>
-            <TabList>
-                <Tab>Your Assets</Tab>
-                <Tab>Listing</Tab>
-            </TabList>
+            px={8} pt={"50px"}
+            w={"full"} >
+            <Flex justifyContent="center" gap={12} flexWrap="wrap">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
+                    (i) => <ItemCard
+                        isMarket
+                        key={i} src={i === 1 && !uploadedImg.includes("example") ? uploadedImg : "./example-item.png"} />)}
+            </Flex>
 
-            <TabPanels>
-                <TabPanel>
-                    <Flex gap={12} flexWrap="wrap" justifyContent="center">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
-                            (i) => <ItemCard key={i} src={i === 1 && !uploadedImg.includes("example") ? uploadedImg : "./example-item.png"} />)}
-                    </Flex>
-                </TabPanel>
-                <TabPanel>
-                    <ValuesForm />
-                </TabPanel>
-            </TabPanels>
-        </Tabs>
+        </Box>
     </Box>
 }
 

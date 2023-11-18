@@ -33,7 +33,7 @@ export function Layout(props: Props) {
         backgroundRepeat={"no-repeat"}
         backgroundSize={"180%"}
         css={{
-          backgroundImage: "url(./background-circle.png)",
+          backgroundImage: "url(background-circle.png)",
           backgroundPositionX: "center",
           backgroundPositionY: "25%"
         }}
