@@ -4,7 +4,7 @@ import { polygonMumbai, celoAlfajores, mantleTestnet, lineaTestnet, baseGoerli, 
 export const SITE_NAME = 'AssetFuse'
 export const PROJECT_ID = '5f7aafd09a6666791de420f9025324fc'
 export const SITE_DESCRIPTION = 'Ready to Use Dapp Boilerplate'
-export const SITE_URL = 'https://dappboilerplate.vercel.app'
+export const SITE_URL = 'eth-global-istanbul-rwa-infra.vercel.app'
 
 export const THEME_INITIAL_COLOR = 'system'
 export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'gray'

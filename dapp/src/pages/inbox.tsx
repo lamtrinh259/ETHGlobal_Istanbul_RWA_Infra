@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import {
     useManageSubscription,
     useSubscription,
@@ -8,6 +8,7 @@ import {
 } from '@web3inbox/widget-react'
 import { useCallback, useEffect } from 'react'
 import { useSignMessage, useAccount } from 'wagmi'
+import { PROJECT_ID } from '../configuration/Config'
 
 const Inbox = () => {
     const { address } = useAccount()
@@ -16,7 +17,7 @@ const Inbox = () => {
     // Initialize the Web3Inbox SDK
     const isReady = useInitWeb3InboxClient({
         // The project ID and domain you setup in the Domain Setup section
-        projectId: "5f7aafd09a6666791de420f9025324fc",
+        projectId: PROJECT_ID,
         domain: 'eth-global-istanbul-rwa-infra.vercel.app',
 
         // Allow localhost development with "unlimited" mode.
@@ -73,17 +74,17 @@ const Inbox = () => {
                             {!isRegistered ? (
                                 <div>
                                     To manage notifications, sign and register an identity key:&nbsp;
-                                    <button onClick={performRegistration} disabled={isRegistering}>
+                                    <Button onClick={performRegistration} disabled={isRegistering}>
                                         {isRegistering ? 'Signing...' : 'Sign'}
-                                    </button>
+                                    </Button>
                                 </div>
                             ) : (
                                 <>
                                     {!isSubscribed ? (
                                         <>
-                                            <button onClick={performSubscribe} disabled={isSubscribing}>
+                                            <Button onClick={performSubscribe} disabled={isSubscribing}>
                                                 {isSubscribing ? 'Subscribing...' : 'Subscribe to notifications'}
-                                            </button>
+                                            </Button>
                                         </>
                                     ) : (
                                         <>
