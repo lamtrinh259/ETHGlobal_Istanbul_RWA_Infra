@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
+//import {GelatoRelayContext} from "@gelatonetwork/relay-context/contracts/GelatoRelayContext.sol";
+
 contract Marketplace is Ownable, IERC721Receiver {
     using Address for address payable;
 
@@ -29,7 +31,13 @@ contract Marketplace is Ownable, IERC721Receiver {
     }
 
     // Mappings
-    mapping(uint256 => Offer) public offers;
+
+    // Mapping from offer ID to offer details
+    mapping(uint256 => Offer) private offers;
+    // Mapping from NFT ID to offer ID
+    // Helps to keep better track of the NFT
+    // and keep one offer per NFT at a tinme
+    mapping(uint256 => uint256) private nftToOffer;
 
     // Other variables
 
@@ -58,6 +66,9 @@ contract Marketplace is Ownable, IERC721Receiver {
         NFTInfo memory nftInfo,
         uint256 expiresAt
     ) external returns (uint256) {
+        // Check there is no existing offer for this NFT
+        // Technically the offerId could be 0, but the likelihood is negligible
+        require(nftToOffer[nftInfo.tokenId] == 0, "NFT already on sale");
         // Generate the offer ID by hashing the offer details
         uint256 offerId = uint256(
             keccak256(
@@ -93,6 +104,7 @@ contract Marketplace is Ownable, IERC721Receiver {
             nftInfo: nftInfo,
             expiresAt: expiresAt
         });
+        nftToOffer[nftInfo.tokenId] = offerId;
 
         // Transfer the NFT from the seller's account to this contract
         nft.safeTransferFrom(msg.sender, address(this), nftInfo.tokenId);
@@ -116,6 +128,7 @@ contract Marketplace is Ownable, IERC721Receiver {
 
         // Delete the offer
         delete offers[offerId];
+        delete nftToOffer[tokenId];
 
         // Transfer the NFT from this contract back to the seller's account
         nft.safeTransferFrom(address(this), seller, tokenId);
@@ -178,6 +191,7 @@ contract Marketplace is Ownable, IERC721Receiver {
 
         // Delete the offer
         delete offers[offerId];
+        delete nftToOffer[tokenId];
 
         // Transfer the NFT from this contract to the buyer's account
         nft.safeTransferFrom(address(this), buyer, tokenId);
@@ -208,5 +222,14 @@ contract Marketplace is Ownable, IERC721Receiver {
     ) external view returns (uint256) {
         Offer memory offer = offers[offerId];
         return (offer.tokenInfo.amount * (10000 + marketplaceFee)) / 10000;
+    }
+
+    function getNFTOffer(uint256 tokenId) external view returns (Offer memory) {
+        uint256 offerId = nftToOffer[tokenId];
+        return offers[offerId];
+    }
+
+    function getOffer(uint256 offerId) external view returns (Offer memory) {
+        return offers[offerId];
     }
 }
