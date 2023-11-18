@@ -118,7 +118,7 @@ export function Header(props: Props) {
             <PopoverHeader>Notifications</PopoverHeader>
             <PopoverBody>
               <Stack>
-                {messages.map(m => <Stack gap={1} borderBottom={"1px solid gray"}>
+                {messages.map(m => <Stack key={m.id} gap={1} borderBottom={"1px solid gray"}>
                   <Text fontWeight={"bold"}>{m.message.title}</Text>
                   <Text fontSize={"small"}>{m.message.body}</Text>
                 </Stack>)}
