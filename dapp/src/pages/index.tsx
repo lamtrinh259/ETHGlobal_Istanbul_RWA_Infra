@@ -2,15 +2,19 @@ import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
 import { Text, Box, Button, Flex, Container, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
-import { createRef, useCallback } from "react";
+import { createRef, useCallback, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useAtom } from "jotai";
 import { Stage, stageAtom } from "../store/stage";
 import { ListingForm } from "../components/ListingForm";
 import QRCode from "react-qr-code";
+import { request } from "../Reusables/request";
+import { uploadedImgAtom } from "../store/uploaded";
 
 const Home: NextPage = () => {
   const [stage, setStage] = useAtom(stageAtom);
+  const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -52,7 +56,6 @@ const Home: NextPage = () => {
           </Text>
 
           <Button my={8} onClick={onOpen}>
-            {/* <input type="file" accept="image/*" capture="user" /> */}
             Take a photo
           </Button>
           <h2>
@@ -109,6 +112,15 @@ const Home: NextPage = () => {
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={onClose}>
               Close
+            </Button>
+            <Button isLoading={isLoading} colorScheme='blue' mr={3} onClick={async () => {
+              setIsLoading(true);
+              const img = await request<{ data: string }>("/api/upload-image", "GET");
+              seUploadedImg(img.data);
+              setIsLoading(false);
+              setStage(Stage.describe);
+            }}>
+              Done
             </Button>
           </ModalFooter>
         </ModalContent>

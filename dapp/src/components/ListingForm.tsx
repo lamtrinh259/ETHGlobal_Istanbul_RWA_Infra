@@ -1,6 +1,7 @@
 import { Grid, Box, Center, Tabs, TabList, Tab, TabPanels, TabPanel, Button } from "@chakra-ui/react"
 import { useAtom } from "jotai";
 import { Stage, stageAtom } from "../store/stage";
+import { uploadedImgAtom } from "../store/uploaded";
 import { ConfirmForm } from "./ConfirmForm";
 import { DescribeForm } from "./DescribeForm"
 import { ValuesForm } from "./ValuesForm";
@@ -8,9 +9,11 @@ import { ValuesForm } from "./ValuesForm";
 export const ListingForm = () => {
     const [stage, setStage] = useAtom(stageAtom);
 
+    const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
+console.log(uploadedImg)
     return <Grid w={"100vw"} h="100vh" templateColumns='repeat(2, 1fr)' gap={0}>
         <Box
-            backgroundImage={"url(./example-item.png)"}
+            backgroundImage={uploadedImg}
             backgroundSize={"contain"}
             // backgroundRepeat={"no-repeat"}
             backgroundPosition={"center"}
