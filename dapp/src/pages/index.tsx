@@ -1,15 +1,18 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { Text, Box, Button, Flex, Container } from "@chakra-ui/react";
+import { Text, Box, Button, Flex, Container, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter } from "@chakra-ui/react";
 import { useDropzone } from "react-dropzone";
 import { createRef, useCallback } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useAtom } from "jotai";
 import { Stage, stageAtom } from "../store/stage";
 import { ListingForm } from "../components/ListingForm";
+import QRCode from "react-qr-code";
 
 const Home: NextPage = () => {
   const [stage, setStage] = useAtom(stageAtom);
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const onDrop = useCallback(
     async (acceptedFiles: any) => {
@@ -48,7 +51,7 @@ const Home: NextPage = () => {
             Bring the physical into the digital realm seamlessly
           </Text>
 
-          <Button my={8}>
+          <Button my={8} onClick={onOpen}>
             {/* <input type="file" accept="image/*" capture="user" /> */}
             Take a photo
           </Button>
@@ -89,6 +92,27 @@ const Home: NextPage = () => {
           </Box>
         </main>
       </div>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Scan the QRCode to take photo</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <QRCode
+              size={256}
+              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+              value={window.location.href + '/camera'}
+              viewBox={`0 0 256 256`}
+            />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
 
   );

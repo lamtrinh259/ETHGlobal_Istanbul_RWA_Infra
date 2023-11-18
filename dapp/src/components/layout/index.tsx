@@ -31,7 +31,7 @@ export function Layout(props: Props) {
         css={{
           backgroundImage: "url(./background-circle.png)",
           backgroundPositionX: "center",
-          backgroundPositionY: "17%"
+          backgroundPositionY: "25%"
         }}
       >
         <Header />
