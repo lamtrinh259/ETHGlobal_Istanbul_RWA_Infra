@@ -49,20 +49,15 @@ contract MarketplaceTest is Test {
             expiryDate
         );
 
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
 
         // Make sure the offer was created correctly
-        assertEq(offerSeller, seller);
-        assertEq(offerTokenInfo.amount, 1 ether);
-        assertEq(offerTokenInfo.tokenAddress, address(0));
-        assertEq(offerNftInfo.nftAddress, address(shop));
-        assertEq(offerNftInfo.tokenId, 1);
-        assertEq(offerExpiresAt, expiryDate);
+        assertEq(offer.seller, seller);
+        assertEq(offer.tokenInfo.amount, 1 ether);
+        assertEq(offer.tokenInfo.tokenAddress, address(0));
+        assertEq(offer.nftInfo.nftAddress, address(shop));
+        assertEq(offer.nftInfo.tokenId, 1);
+        assertEq(offer.expiresAt, expiryDate);
 
         // The marketplace should now own the NFT of the seller
         assertEq(shop.ownerOf(1), address(marketplace));
@@ -91,18 +86,13 @@ contract MarketplaceTest is Test {
         assertEq(shop.ownerOf(1), seller);
 
         // The offer should no longer exist
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
-        assertEq(offerSeller, address(0));
-        assertEq(offerTokenInfo.amount, 0);
-        assertEq(offerTokenInfo.tokenAddress, address(0));
-        assertEq(offerNftInfo.nftAddress, address(0));
-        assertEq(offerNftInfo.tokenId, 0);
-        assertEq(offerExpiresAt, 0);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
+        assertEq(offer.seller, address(0));
+        assertEq(offer.tokenInfo.amount, 0);
+        assertEq(offer.tokenInfo.tokenAddress, address(0));
+        assertEq(offer.nftInfo.nftAddress, address(0));
+        assertEq(offer.nftInfo.tokenId, 0);
+        assertEq(offer.expiresAt, 0);
 
         vm.stopPrank();
     }
@@ -140,18 +130,13 @@ contract MarketplaceTest is Test {
         );
 
         // The offer should no longer exist
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
-        assertEq(offerSeller, address(0));
-        assertEq(offerTokenInfo.amount, 0);
-        assertEq(offerTokenInfo.tokenAddress, address(0));
-        assertEq(offerNftInfo.nftAddress, address(0));
-        assertEq(offerNftInfo.tokenId, 0);
-        assertEq(offerExpiresAt, 0);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
+        assertEq(offer.seller, address(0));
+        assertEq(offer.tokenInfo.amount, 0);
+        assertEq(offer.tokenInfo.tokenAddress, address(0));
+        assertEq(offer.nftInfo.nftAddress, address(0));
+        assertEq(offer.nftInfo.tokenId, 0);
+        assertEq(offer.expiresAt, 0);
 
         vm.stopPrank();
     }
@@ -202,18 +187,13 @@ contract MarketplaceTest is Test {
         );
 
         // The offer should no longer exist
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
-        assertEq(offerSeller, address(0));
-        assertEq(offerTokenInfo.amount, 0);
-        assertEq(offerTokenInfo.tokenAddress, address(0));
-        assertEq(offerNftInfo.nftAddress, address(0));
-        assertEq(offerNftInfo.tokenId, 0);
-        assertEq(offerExpiresAt, 0);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
+        assertEq(offer.seller, address(0));
+        assertEq(offer.tokenInfo.amount, 0);
+        assertEq(offer.tokenInfo.tokenAddress, address(0));
+        assertEq(offer.nftInfo.nftAddress, address(0));
+        assertEq(offer.nftInfo.tokenId, 0);
+        assertEq(offer.expiresAt, 0);
 
         vm.stopPrank();
     }
@@ -241,20 +221,15 @@ contract MarketplaceTest is Test {
             0
         );
 
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
 
         // Make sure the offer was created correctly
-        assertEq(offerSeller, seller);
-        assertEq(offerTokenInfo.amount, 5 ether);
-        assertEq(offerTokenInfo.tokenAddress, address(usdc));
-        assertEq(offerNftInfo.nftAddress, address(shop));
-        assertEq(offerNftInfo.tokenId, 1);
-        assertEq(offerExpiresAt, 0);
+        assertEq(offer.seller, seller);
+        assertEq(offer.tokenInfo.amount, 5 ether);
+        assertEq(offer.tokenInfo.tokenAddress, address(usdc));
+        assertEq(offer.nftInfo.nftAddress, address(shop));
+        assertEq(offer.nftInfo.tokenId, 1);
+        assertEq(offer.expiresAt, 0);
 
         // The marketplace should now own the NFT of the seller
         assertEq(shop.ownerOf(1), address(marketplace));
@@ -312,18 +287,13 @@ contract MarketplaceTest is Test {
         );
 
         // The offer should no longer exist
-        (
-            address offerSeller,
-            Marketplace.PurchaseTokenInfo memory offerTokenInfo,
-            Marketplace.NFTInfo memory offerNftInfo,
-            uint256 offerExpiresAt
-        ) = marketplace.offers(offerId);
-        assertEq(offerSeller, address(0));
-        assertEq(offerTokenInfo.amount, 0);
-        assertEq(offerTokenInfo.tokenAddress, address(0));
-        assertEq(offerNftInfo.nftAddress, address(0));
-        assertEq(offerNftInfo.tokenId, 0);
-        assertEq(offerExpiresAt, 0);
+        Marketplace.Offer memory offer = marketplace.getOffer(offerId);
+        assertEq(offer.seller, address(0));
+        assertEq(offer.tokenInfo.amount, 0);
+        assertEq(offer.tokenInfo.tokenAddress, address(0));
+        assertEq(offer.nftInfo.nftAddress, address(0));
+        assertEq(offer.nftInfo.tokenId, 0);
+        assertEq(offer.expiresAt, 0);
 
         vm.stopPrank();
     }
