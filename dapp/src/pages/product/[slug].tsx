@@ -1,6 +1,5 @@
-import { Text, Grid, Box, Center, Tabs, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
+import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel } from "@chakra-ui/react"
 import { useAtom } from "jotai";
-import { useRouter } from "next/router";
 import { uploadedImgAtom } from "../../store/uploaded";
 import Link from "next/link";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -43,11 +42,14 @@ const Product = () => {
 
                 <Box>
                     <Text mb={2} fontWeight={"bold"}>Owned by</Text>
-                    <Text p={"9px"}
-                        borderRadius={"9px"}
+                    <HStack p={"9px"}
+                        borderRadius={"20px"}
                         bg={"rgba(0, 8, 79, 0.05)"}
-                        w={"fit-content"}
-                    >exwhyzee.eth</Text>
+                        w={"fit-content"}>
+                        <Image display={"inline"} src="/avatar.png" />
+                        <Text
+                        > exwhyzee.eth</Text>
+                    </HStack>
                 </Box>
             </Stack>
 

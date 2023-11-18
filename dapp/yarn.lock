@@ -2558,6 +2558,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@gatefi/js-sdk@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@gatefi/js-sdk/-/js-sdk-0.14.0.tgz#d6e04982625aef9e945c256d598eac8437f3a677"
+  integrity sha512-CMydh56jKd0KF5AQykMe0kpoQYW/0vCK7RZ7fOR4xiCcP3sGoRz9E+YV/b1O80HX26OF/+JgQ/r2VIe1a+DYrg==
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"

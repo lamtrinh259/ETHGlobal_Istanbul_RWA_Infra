@@ -8,7 +8,7 @@ const PushChat = dynamic(() => import('../components/PushChat'), {
 
 const Chat = () => {
     const router = useRouter();
-    return <Box paddingTop={"100px"} maxHeight={"300px"}>
+    return <Box paddingTop={"150px"} px={"100px"} >
         <PushChat account={router.query.account as string} />
     </Box>
 }

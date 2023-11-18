@@ -18,6 +18,7 @@ import {
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ChevronRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Logo } from "../../Reusables/helper";
+import { Unlimit } from "../Unlimit";
 
 interface Props {
   className?: string;
@@ -73,6 +74,7 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4} mr={4}>
+        <Unlimit />
         <ConnectButton
           accountStatus={{
             smallScreen: "address",

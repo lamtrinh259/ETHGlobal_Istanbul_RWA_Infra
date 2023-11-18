@@ -1,7 +1,7 @@
 import { useWalletClient } from "wagmi";
 import { IFeeds, PushAPI } from "@pushprotocol/restapi";
 import { useEffect, useRef, useState } from "react";
-import { DrawerBody, DrawerFooter, Button, Drawer, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Link, Stack, useDisclosure } from "@chakra-ui/react";
+import { Text, DrawerBody, DrawerFooter, Button, Drawer, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Link, Stack, useDisclosure, HStack, Image } from "@chakra-ui/react";
 
 export const PushNotification = ({ account }: { account?: string }) => {
     const { data: walletClient } = useWalletClient();
@@ -27,10 +27,9 @@ export const PushNotification = ({ account }: { account?: string }) => {
         doit();
     }, [walletClient, isOpen])
 
-
     return (
         <>
-            <Button pos={"fixed"} right={8} bottom={8} ref={btnRef} colorScheme='teal' onClick={onOpen}>
+            <Button zIndex={1000} pos={"fixed"} right={8} bottom={8} ref={btnRef} colorScheme='teal' onClick={onOpen}>
                 Chats
             </Button>
             <Drawer
@@ -48,9 +47,20 @@ export const PushNotification = ({ account }: { account?: string }) => {
                         <Stack>
                             {chats.map((chat) =>
                                 <Link
+                                    rounded={"full"}
+                                    _hover={{bg: "gray.100"}}
+                                    padding={4}
+                                    bg="gray.200"
                                     isExternal
                                     key={chat.chatId}
-                                    href={`/chat?account=${chat.chatId}`}>{chat.chatId}</Link>
+                                    href={`/chat?account=${chat.chatId}`}>
+                                    <HStack>
+                                        <Image src="./avatar.png" />
+                                        {/* @ts-ignore */}
+                                        <Text>{chat.msg.messageObj?.content}</Text>
+                                    </HStack>
+
+                                </Link>
                             )}
                         </Stack>
                     </DrawerBody>
