@@ -7,5 +7,6 @@ type NFTJson = {
     description: string
     price: number
     currency: string
+    image: string
 }
 export const nftJsonAtom = atom<NFTJson>({} as any as NFTJson);

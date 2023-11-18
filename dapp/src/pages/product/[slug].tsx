@@ -7,11 +7,12 @@ import { IoDiamondOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { SellModel } from "../../components/SellModel";
 import { BsStars } from "react-icons/bs";
-import { chatAtom } from "../../store/chat";
+import { chatAtom, chatOpenAtom } from "../../store/chat";
 
 const Product = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [chatId, setChatId] = useAtom(chatAtom);
+    const [chatOpen, setChatOpen] = useAtom(chatOpenAtom);
 
     const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
     const router = useRouter();
@@ -62,7 +63,10 @@ const Product = () => {
                             <Text
                             > exwhyzee.eth</Text>
                         </HStack>
-                        <Link onClick={() => setChatId("0x93a94718805d771E75383FB510fd69f0BA023A06")}>
+                        <Link onClick={() => {
+                            setChatId("0x93a94718805d771E75383FB510fd69f0BA023A06")
+                            setChatOpen(true)
+                        }}>
                             <HStack
                                 cursor={"pointer"}
                                 py={"9px"}

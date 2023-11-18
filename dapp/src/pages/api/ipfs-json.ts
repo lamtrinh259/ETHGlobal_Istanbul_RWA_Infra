@@ -6,11 +6,9 @@ export default async function handler(
     res: NextApiResponse,
 ) {
     if (req.method === "POST") {
-        return res.status(200).json({
-            message: JSON.stringify(
-                await pinata.pinJSONToIPFS(req.body)
-            )
-        });
+        return res.status(200).json(
+            await pinata.pinJSONToIPFS(req.body)
+        );
     }
     else {
         return res.status(400);

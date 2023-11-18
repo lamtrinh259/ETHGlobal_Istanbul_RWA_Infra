@@ -12,6 +12,11 @@ import shopConfig from "../../../contracts/out/Shop.sol/Shop.json";
 import { getDeployedContract, saveDeployedContract } from "../lib/utils";
 import { getContractAddress } from "viem";
 import { useCurrentContract } from "../hooks/useCurrentContract";
+import marketplaceConfig from "../../../contracts/out/Marketplace.sol/Marketplace.json";
+import { uploadedImgAtom } from "../store/uploaded";
+import { nftJsonAtom } from "../store/nftJson";
+import { request } from "../Reusables/request";
+import { PinataPinResponse } from "@pinata/sdk";
 
 export const TokenizeForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,8 +26,11 @@ export const TokenizeForm = () => {
   const { address } = useAccount();
   const { chain } = useNetwork();
   const contractAddress = useCurrentContract();
+  const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
+  const [nftJson, setNftJson] = useAtom(nftJsonAtom);
 
   const getOrDeployContract = async () => {
+    if(!client) return;
     if (!contractAddress) {
       const txHash = await client.deployContract({
         args: [client.account.address],
@@ -45,13 +53,14 @@ export const TokenizeForm = () => {
     return contractAddress;
   };
 
-  const mintNFT = async (contract: string) => {
+  const mintNFT = async (contract: string, cid: string) => {
+    if(!client) return;
     const txHash = await client.writeContract({
       address: contract,
       abi: shopConfig.abi,
       functionName: "mint",
       account: address,
-      args: [address, ""],
+      args: [address, `ipfs://${cid}`],
     });
     console.log(txHash);
     return txHash;
@@ -68,10 +77,22 @@ export const TokenizeForm = () => {
             }
             setIsLoading(true);
             const contractAddress = await getOrDeployContract();
-            await mintNFT(contractAddress);
-            setTimeout(() => {
-              setStage(stage + 1);
-            }, 2000);
+
+            // upload image
+            const res = await request<PinataPinResponse>("/api/ipfs-image", "POST", {}, uploadedImg);
+
+            console.log("res1", res);
+
+            // upload metadata
+            const res2 = await request<PinataPinResponse>("/api/ipfs-json", "POST", {}, {
+              ...nftJson,
+              image: `ipfs://${res.IpfsHash}`
+            });
+
+            console.log("res2", res2);
+
+            await mintNFT(contractAddress, res2.IpfsHash);
+            setStage(stage + 1);
           }}
         >
           Tokenize
