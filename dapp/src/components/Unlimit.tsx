@@ -19,7 +19,7 @@ export const Unlimit = () => {
         const randomString = require('crypto').randomBytes(32).toString('hex');
         if (typeof document !== 'undefined') {
             embedInstanceSDK.current = new GateFiSDK({
-                merchantId: "9e34f479-b43a-4372-8bdf-90689e16cd5b",
+                merchantId: "dd5469a7-df87-44eb-80f8-112a06705ba7",
                 displayMode: GateFiDisplayModeEnum.Embedded,
                 nodeSelector: "#embed-button",
                 isSandbox: true,

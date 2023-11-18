@@ -25,7 +25,7 @@ export const ConfirmForm = () => {
             });
         };
         win_effect();
-    }, [client]);
+    }, []);
 
     return <Stack pl={2} pr={4} gap={4}>
         <Center mt={"100px"}>

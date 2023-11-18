@@ -1,4 +1,4 @@
-import { Button, Center, Stack } from "@chakra-ui/react";
+import { Button, Center, Stack, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { request } from "../Reusables/request";
 import imageCompression from 'browser-image-compression';
@@ -6,8 +6,10 @@ import imageCompression from 'browser-image-compression';
 const Camera = () => {
     const [imgData, setImgData] = useState<string | null>(null);
     const [isSending, setIsSending] = useState(false);
+    const toast = useToast()
+
     return <Center h={"100vh"} w={"full"}>
-        <Stack>
+        <Stack gap={8}>
             <input type="file" accept="image/*" onChange={async (event) => {
                 const file = event.target.files![0];
 
@@ -36,6 +38,13 @@ const Camera = () => {
                     imgData
                 );
                 setIsSending(false);
+                toast({
+                    title: 'Submitted',
+                    description: "Go laptop to continue.",
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                  })
             }}>Submit</Button>
         </Stack>
 

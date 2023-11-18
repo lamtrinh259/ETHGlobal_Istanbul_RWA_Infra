@@ -1,16 +1,17 @@
-import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel, useDisclosure } from "@chakra-ui/react"
+import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel, useDisclosure, Link } from "@chakra-ui/react"
 import { useAtom } from "jotai";
 import { uploadedImgAtom } from "../../store/uploaded";
-import Link from "next/link";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { FaTag } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { SellModel } from "../../components/SellModel";
 import { BsStars } from "react-icons/bs";
+import { chatAtom } from "../../store/chat";
 
 const Product = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [chatId, setChatId] = useAtom(chatAtom);
 
     const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
     const router = useRouter();
@@ -25,7 +26,7 @@ const Product = () => {
         <Box w={"full"} h={"full"} pos="relative" backgroundColor={"#E7E8FF"}>
             <Stack mt={"100px"} p={8} gap={4}>
                 <Link href={isMarket ? "/market" : "/assets"}>
-                    <Text cursor="pointer" _hover={{ textDecoration: "underline" }}><ArrowBackIcon mr={2} />YOUR ASSETS</Text>
+                    <Text cursor="pointer" _hover={{ textDecoration: "underline" }}><ArrowBackIcon mr={2} />{isMarket ? "MARKET" : "YOUR ASSETS"}</Text>
                 </Link>
                 <Text fontSize={"35px"}>Martha Jackson’s Mens Silver Bracelet</Text>
 
@@ -61,7 +62,7 @@ const Product = () => {
                             <Text
                             > exwhyzee.eth</Text>
                         </HStack>
-                        <Link target="_blank" href={"/chat?account=" + "0x93a94718805d771E75383FB510fd69f0BA023A06"}>
+                        <Link onClick={() => setChatId("0x93a94718805d771E75383FB510fd69f0BA023A06")}>
                             <HStack
                                 cursor={"pointer"}
                                 py={"9px"}

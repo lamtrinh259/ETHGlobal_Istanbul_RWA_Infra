@@ -1,4 +1,3 @@
-- Push UI change
 - Change network (icon)
 - check other UIs
 

@@ -30,6 +30,7 @@ const Assets: NextPage = () => {
             minH={"100vh"}
             bg={"#E5E2FF"}
             px={8} pt={"50px"}
+            pb={"100px"} 
             w={"full"} >
             <Flex justifyContent="center" gap={12} flexWrap="wrap">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(

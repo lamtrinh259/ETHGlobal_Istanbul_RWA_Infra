@@ -6,8 +6,6 @@ import { ReactNode } from 'react'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { NETWORKS, INFURA_KEY, SITE_NAME, PROJECT_ID } from '../configuration/Config'
 import React from 'react'
-import { createClient } from 'viem'
-
 
 interface Props {
   children: ReactNode

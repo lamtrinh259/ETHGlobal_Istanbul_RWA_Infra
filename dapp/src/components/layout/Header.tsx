@@ -40,7 +40,7 @@ export function Header(props: Props) {
   const router = useRouter();
   return (
     <Flex
-      // as="header"
+      display={{ base: "none", lg: "flex" }}
       zIndex={1000}
       className={className}
       color={useColorModeValue("gray.700", "gray.200")}
