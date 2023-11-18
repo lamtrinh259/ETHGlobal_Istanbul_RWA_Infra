@@ -133,7 +133,7 @@ forge verify-contract $CONTRACT_ADDRESS Marketplace \
 
 ### Contract addresses
 
-- Scroll Sepolia: (0x6f2DdDF11283dc74949b86D350Ea425B25c7c8Dc)[https://sepolia.scrollscan.dev/address/0x6f2DdDF11283dc74949b86D350Ea425B25c7c8Dc]
+- Scroll Sepolia: (0xD533833fe737150C8935D57039398CC5322f2dAb)[https://sepolia.scrollscan.dev/address/0xD533833fe737150C8935D57039398CC5322f2dAb]
 - Celo Alfajores: (0x485247D991959C04A2D80a625647adD3Ce45CE6C)[https://alfajores.celoscan.io/address/0x485247D991959C04A2D80a625647adD3Ce45CE6C]
 - Base Goerli: (0x485247D991959C04A2D80a625647adD3Ce45CE6C)[https://goerli.basescan.org/address/0x485247D991959C04A2D80a625647adD3Ce45CE6C]
 - Arbitrum Goerli: (0x485247D991959C04A2D80a625647adD3Ce45CE6C)[https://goerli.arbiscan.io/address/0x485247D991959C04A2D80a625647adD3Ce45CE6C]
