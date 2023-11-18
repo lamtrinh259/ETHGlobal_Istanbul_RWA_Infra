@@ -1,3 +1,2 @@
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
 @gelatonetwork/relay-context/contracts/=lib/relay-context-contracts/contracts/
-@api3/contracts/=lib/contracts/contracts/

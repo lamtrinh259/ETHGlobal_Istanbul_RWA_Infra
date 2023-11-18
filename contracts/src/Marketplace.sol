@@ -6,7 +6,12 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import "@api3/contracts/v0.8/interfaces/IProxy.sol";
+
+interface IProxy {
+    function read() external view returns (int224 value, uint32 timestamp);
+
+    function api3ServerV1() external view returns (address);
+}
 
 contract Marketplace is Ownable, IERC721Receiver {
     using Address for address payable;
