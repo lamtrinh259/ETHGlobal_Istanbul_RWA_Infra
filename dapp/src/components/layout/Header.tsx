@@ -39,12 +39,12 @@ export function Header(props: Props) {
       className={className}
       color={useColorModeValue("gray.700", "gray.200")}
       borderRadius="96px"
-      border={"1px solid #FFF"}
+      border={"1px solid #000"}
       background="rgba(255, 255, 255, 0.13)"
       backdropFilter={"blur(72.80000305175781px)"}
       opacity={1}
-      px={1}
-      py={1}
+      px={2}
+      py={2}
       mb={8}
       top={4}
       marginX={"16px"}
@@ -60,8 +60,6 @@ export function Header(props: Props) {
           color={useColorModeValue("gray.800", "white")}
           _hover={{
             textDecoration: "none",
-            color: useColorModeValue("gray.800", "white"),
-            bg: useColorModeValue("green.200", "green.900"),
           }}
         >
           <Logo />

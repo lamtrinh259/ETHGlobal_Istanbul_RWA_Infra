@@ -19,7 +19,7 @@ export const Logo = (props: any) => {
           objectFit={"cover"}
           src={"/logo.png"}
         />
-        <Text >AssetFuse</Text>
+        <Text fontWeight="bold">AssetFuse</Text>
       </>
     </HStack>
   );

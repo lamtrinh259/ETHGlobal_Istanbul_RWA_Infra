@@ -1,14 +1,35 @@
-import { ChakraProvider as ChakraUiProvider, extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
+import { ChakraProvider as ChakraUiProvider, extendTheme, StyleFunctionProps, withDefaultColorScheme } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { THEME_COLOR_SCHEME, THEME_CONFIG } from '../configuration/Config'
-
 
 interface Props {
   children: ReactNode
 }
 
-const theme = extendTheme(withDefaultColorScheme({ colorScheme: THEME_COLOR_SCHEME }), {
-  ...THEME_CONFIG,
+const theme = extendTheme({
+  fonts: {
+    heading: `'Avenir', Avenir`,
+    body: `'Avenir', Avenir`,
+  },
+  components: {
+    Button: {
+      // 1. We can update the base styles
+      baseStyle: {
+        bg: '#000',
+        color: '#fff',
+        rounded: 'full',
+        _hover: {
+          bg: 'gray.700',
+        }
+      },
+      // 2. We can add a new button size or extend existing
+      sizes: {
+      },
+      // 6. We can overwrite defaultProps
+      defaultProps: {
+        variant: 'sm', // default is solid
+      },
+    },
+  },
 })
 
 export function ChakraProvider(props: Props) {

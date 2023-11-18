@@ -42,12 +42,12 @@ const Home: NextPage = () => {
       <div className={styles.container}>
         <main className={styles.main}>
           <h1 className={styles.title}>
-            Where the digital meets the tangible.
+            Where the <Text display={"inline"} fontFamily="cursive">digital</Text> meets the <Text display={"inline"} fontFamily="cursive">tangible</Text>.
           </h1>
-          <h2>
+          <Text my={2} fontSize="2xl">
             Bring the physical into the digital realm seamlessly
-          </h2>
-          <Button>
+          </Text>
+          <Button my={8}>
             Take a photo
           </Button>
           <h2>
@@ -67,21 +67,20 @@ const Home: NextPage = () => {
               ref={dropZoneRef}
               mt="6"
               backdropFilter="blur(20px)"
-              border="white 2px dashed"
-              rounded="40px"
+              border="2px dashed #000"
+              rounded="45px"
               minH={{ base: "50vh", xl: "40vh" }}
-              bg="blackAlpha.400"
+              bg="rgba(255, 255, 255, 0.09)"
               direction="column"
               transitionDuration="300ms"
               alignItems="center"
-              _hover={{ background: "blackAlpha.500" }}
+              _hover={{ background: "blackAlpha.100" }}
               justify="center"
-              color="#FFE4E8"
               py="10"
               mb="10"
             >
               <FaCloudUploadAlt size="60px" />
-              <Text fontFamily="secondary" fontWeight="normal" mt="2">
+              <Text fontWeight="normal" mt="2">
                 Drag & Drop a file here to get started!
               </Text>
             </Flex>

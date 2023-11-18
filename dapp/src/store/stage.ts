@@ -1,7 +1,7 @@
 import { atom } from 'jotai'
 
 export enum Stage {
-    uploading = 1,
+    uploading = 0,
     describe,
     value,
     confirm
