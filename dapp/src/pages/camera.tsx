@@ -7,7 +7,7 @@ const Camera = () => {
     const [isSending, setIsSending] = useState(false);
     return <Center h={"100vh"} w={"full"}>
         <Stack>
-            <input type="file" accept="image/*" capture="user" onChange={(event) => {
+            <input type="file" accept="image/*" onChange={(event) => {
                 const file = event.target.files![0];
                 const reader = new FileReader();
 
