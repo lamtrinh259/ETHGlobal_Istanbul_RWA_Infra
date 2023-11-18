@@ -464,4 +464,28 @@ contract MarketplaceTest is Test {
 
         vm.stopPrank();
     }
+
+    // Price feeds
+
+    function test_get_eth_to_usd() public {
+        vm.createSelectFork(vm.envString("POLYGON_RPC_URL"), 50086102);
+        marketplace = new Marketplace(marketplaceOwner);
+
+        assertEq(block.number, 50086102);
+
+        (int224 value, uint256 timestamp) = marketplace.getETHtoUSD();
+        assertEq(value, 1941312063585853600000);
+        assertEq(timestamp, 1700296712);
+    }
+
+    function test_get_usdc_to_usd() public {
+        vm.createSelectFork(vm.envString("BASE_GOERLI_RPC_URL"), 12564075);
+        marketplace = new Marketplace(marketplaceOwner);
+
+        assertEq(block.number, 12564075);
+
+        (int224 value, uint256 timestamp) = marketplace.getUSDCtoUSD();
+        assertEq(value, 999750000000000000);
+        assertEq(timestamp, 1700252783);
+    }
 }
