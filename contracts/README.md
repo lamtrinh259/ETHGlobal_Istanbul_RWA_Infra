@@ -118,6 +118,12 @@ forge verify-contract $CONTRACT_ADDRESS Marketplace \
   --etherscan-api-key $LINEASCAN_API_KEY \
   --constructor-args $(cast abi-encode "constructor(address)" $DEPLOYER_ADDRESS)
 
+# For Mantle Testnet
+forge verify-contract $CONTRACT_ADDRESS Marketplace \
+    --verifier blockscout --watch \
+	--verifier-url "https://explorer.testnet.mantle.xyz/api?module=contract&action=verify" \
+    --constructor-args $(cast abi-encode "constructor(address)" $DEPLOYER_ADDRESS)
+
 # For Gnosis Mainnet
 forge verify-contract $CONTRACT_ADDRESS Marketplace \
   --verifier-url https://api.gnosisscan.io/api  \
