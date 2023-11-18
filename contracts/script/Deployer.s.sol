@@ -11,8 +11,7 @@ contract DeployerScript is Script {
     function run() public {
         vm.startBroadcast();
 
-        //Marketplace marketplace = new Marketplace(msg.sender);
-        //Shop shop = new Shop(msg.sender);
+        Marketplace marketplace = new Marketplace(msg.sender);
 
         vm.stopBroadcast();
     }
