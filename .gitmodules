@@ -4,3 +4,6 @@
 [submodule "contracts/lib/relay-sdk"]
 	path = contracts/lib/relay-sdk
 	url = https://github.com/gelatodigital/relay-sdk
+[submodule "contracts/lib/contracts"]
+	path = contracts/lib/contracts
+	url = https://github.com/api3dao/contracts
