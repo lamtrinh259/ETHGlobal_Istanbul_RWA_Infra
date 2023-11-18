@@ -81,7 +81,7 @@ $ forge script ./script/Deployer.s.sol:DeployerScript --rpc-url $SCROLL_SEPOLIA_
 ```shell
 # For Scroll Sepolia
 forge verify-contract $CONTRACT_ADDRESS Marketplace \
-  --verifier-url https://api-mumbai.scrollscan.com/api \
+  --verifier-url https://api-sepolia.scrollscan.com/api \
   --etherscan-api-key $SCROLLSCAN_API_KEY \
   --constructor-args $(cast abi-encode "constructor(address)" $DEPLOYER_ADDRESS)
 

@@ -1,6 +1,8 @@
 # Compiler files
 cache/
-out/
+out/*
+!/out/Marketplace.sol/
+!/out/Shop.sol/
 
 # Ignores development broadcast logs
 !/broadcast
@@ -12,3 +14,4 @@ docs/
 
 # Dotenv file
 .env
+.DS_Store
