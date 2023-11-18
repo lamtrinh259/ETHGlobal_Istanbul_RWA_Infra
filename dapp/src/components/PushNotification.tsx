@@ -11,7 +11,7 @@ export const PushNotification = ({ account }: { account?: string }) => {
     const btnRef = useRef(null)
 
     useEffect(() => {
-        if (!walletClient) return;
+        if (!walletClient || !isOpen) return;
 
         async function doit() {
             setIsLoading(true);
@@ -25,7 +25,7 @@ export const PushNotification = ({ account }: { account?: string }) => {
         }
 
         doit();
-    }, [walletClient])
+    }, [walletClient, isOpen])
 
 
     return (

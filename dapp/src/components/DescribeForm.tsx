@@ -18,9 +18,10 @@ export const DescribeForm = () => {
                 <Select
                     backgroundColor={"#D8DAF6"}
                     placeholder='Select option'>
-                    <option value='option1'>Option 1</option>
-                    <option value='option2'>Option 2</option>
-                    <option value='option3'>Option 3</option>
+                    <option value='option1'>Jewellery</option>
+                    <option value='option2'>Watch</option>
+                    <option value='option3'>Sunglass</option>
+                    <option value='option3'>Electronics</option>
                 </Select>
             </Box>
             <Box flexGrow={1}>
@@ -28,9 +29,10 @@ export const DescribeForm = () => {
                 <Select
                     backgroundColor={"#D8DAF6"}
                     placeholder='Select option'>
-                    <option value='option1'>Option 1</option>
-                    <option value='option2'>Option 2</option>
-                    <option value='option3'>Option 3</option>
+                    <option value='option1'>New</option>
+                    <option value='option2'>Good</option>
+                    <option value='option3'>Acceptable</option>
+                    <option value='option4'>Damaged</option>
                 </Select>
             </Box>
         </HStack>

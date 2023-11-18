@@ -2,8 +2,11 @@ import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/r
 import { NextPage } from "next";
 import { ItemCard } from "../components/ItemCard";
 import { ValuesForm } from "../components/ValuesForm";
+import { useAtom } from "jotai";
+import { uploadedImgAtom } from "../store/uploaded";
 
 const Assets: NextPage = () => {
+    const [uploadedImg, _] = useAtom(uploadedImgAtom);
     return <Box
         bg={"#E5E2FF"}
         minH={"100vh"}
@@ -18,7 +21,7 @@ const Assets: NextPage = () => {
                 <TabPanel>
                     <Flex gap={8} flexWrap="wrap">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
-                            (i) => <ItemCard key={i} />)}
+                            (i) => <ItemCard key={i} src={i === 1 && !uploadedImg.includes("example") ? uploadedImg : "./example-item.png"} />)}
                     </Flex>
                 </TabPanel>
                 <TabPanel>

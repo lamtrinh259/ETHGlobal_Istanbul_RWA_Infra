@@ -5,12 +5,12 @@ import { uploadedImgAtom } from "../store/uploaded";
 import { ConfirmForm } from "./ConfirmForm";
 import { DescribeForm } from "./DescribeForm"
 import { ValuesForm } from "./ValuesForm";
+import { useRouter } from "next/router";
 
 export const ListingForm = () => {
     const [stage, setStage] = useAtom(stageAtom);
-
+    const router = useRouter();
     const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
-console.log(uploadedImg)
     return <Grid w={"100vw"} h="100vh" templateColumns='repeat(2, 1fr)' gap={0}>
         <Box
             backgroundImage={uploadedImg}
@@ -44,12 +44,11 @@ console.log(uploadedImg)
                 {stage !== Stage.confirm && <Button onClick={() => {
                     setStage(stage + 1)
                 }}>Proceed</Button>}
-                {stage === Stage.confirm && <Button 
-                as={"a"}
-                href={"/assets"}
-                onClick={() => {
-                    setStage(stage + 1)
-                }}>See your Assets</Button>}
+                {stage === Stage.confirm && <Button
+                    onClick={() => {
+                        setStage(stage + 1)
+                        router.push("/assets")
+                    }}>See your Assets</Button>}
             </Box>
         </Box>
 

@@ -49,7 +49,7 @@ export function Header(props: Props) {
       mb={8}
       top={4}
       marginX={"16px"}
-      pos="absolute"
+      pos="fixed"
       w="calc(100% - 32px)"
       alignItems="center"
     >
