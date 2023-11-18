@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@api3/contracts/v0.8/interfaces/IProxy.sol";
 
 contract Marketplace is Ownable, IERC721Receiver {
     using Address for address payable;
@@ -55,6 +56,9 @@ contract Marketplace is Ownable, IERC721Receiver {
     // The fee percentage that the marketplace takes from each sale
     // 2 decimals of precision, so 500 = 5%
     uint256 public marketplaceFee = 500;
+
+    address public ethUsdProxy = 0x26690F9f17FdC26D419371315bc17950a0FC90eD;
+    address public usdcUsdProxy = 0x8DF7d919Fe9e866259BB4D135922c5Bd96AF6A27;
 
     // Events
     event OfferCreated(
@@ -421,6 +425,14 @@ contract Marketplace is Ownable, IERC721Receiver {
         marketplaceFee = fee;
     }
 
+    function setProxyAddresses(
+        address _ethUsd,
+        address _usdUsdc
+    ) public onlyOwner {
+        ethUsdProxy = _ethUsd;
+        usdcUsdProxy = _usdUsdc;
+    }
+
     // Read functions
 
     function getNFTOffer(uint256 tokenId) external view returns (Offer memory) {
@@ -445,5 +457,21 @@ contract Marketplace is Ownable, IERC721Receiver {
             bidsForNFT[i] = bids[bidIds[i]];
         }
         return bidsForNFT;
+    }
+
+    function getETHtoUSD()
+        external
+        view
+        returns (int224 value, uint256 timestamp)
+    {
+        return IProxy(ethUsdProxy).read();
+    }
+
+    function getUSDCtoUSD()
+        external
+        view
+        returns (int224 value, uint256 timestamp)
+    {
+        return IProxy(usdcUsdProxy).read();
     }
 }
