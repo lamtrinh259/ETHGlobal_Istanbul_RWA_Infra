@@ -7,25 +7,17 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
-import {GelatoRelayContextERC2771} from "@gelatonetwork/relay-context/contracts/GelatoRelayContextERC2771.sol";
-
 contract Shop is
     ERC721,
     ERC721Enumerable,
     ERC721Pausable,
     Ownable,
-    ERC721Burnable,
-    GelatoRelayContextERC2771
+    ERC721Burnable
 {
     using Strings for uint256;
 
     uint256 private _nextTokenId;
     mapping(uint256 => string) private tokenURIs;
-
-    modifier onlyOwnerRelayed() {
-        require(_getMsgSender() == owner(), "Only owner");
-        _;
-    }
 
     constructor(
         address initialOwner
@@ -33,37 +25,24 @@ contract Shop is
 
     // Admin functions
 
-    function pause() public onlyOwnerRelayed {
+    function pause() public onlyOwner {
         _pause();
     }
 
-    function unpause() public onlyOwnerRelayed {
+    function unpause() public onlyOwner {
         _unpause();
     }
 
-    function _baseMint(address to, string memory tokenUri) private {
+    function mint(address to, string memory tokenUri) public onlyOwner {
         uint256 tokenId = ++_nextTokenId;
         _safeMint(to, tokenId);
         tokenURIs[tokenId] = tokenUri;
     }
 
-    function mint(address to, string memory tokenUri) public onlyOwnerRelayed {
-        _baseMint(to, tokenUri);
-    }
-
-    function mintRelayed(
-        address to,
-        string memory tokenUri
-    ) public onlyOwnerRelayed {
-        require(_isGelatoRelayERC2771(msg.sender), "Only Gelato Relayer");
-        _transferRelayFee();
-        _baseMint(to, tokenUri);
-    }
-
     function setTokenUri(
         uint256 tokenId,
         string memory uri
-    ) external onlyOwnerRelayed {
+    ) external onlyOwner {
         tokenURIs[tokenId] = uri;
     }
 

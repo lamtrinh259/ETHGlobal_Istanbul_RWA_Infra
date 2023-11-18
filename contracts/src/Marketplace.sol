@@ -7,9 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
-import {GelatoRelayContextERC2771} from "@gelatonetwork/relay-context/contracts/GelatoRelayContextERC2771.sol";
-
-contract Marketplace is Ownable, IERC721Receiver, GelatoRelayContextERC2771 {
+contract Marketplace is Ownable, IERC721Receiver {
     using Address for address payable;
 
     // Structs
@@ -61,12 +59,12 @@ contract Marketplace is Ownable, IERC721Receiver, GelatoRelayContextERC2771 {
 
     constructor(address initialOwner) Ownable(initialOwner) {}
 
-    function _createOffer(
+    function createOffer(
         PurchaseTokenInfo memory tokenInfo,
         NFTInfo memory nftInfo,
         uint256 expiresAt
-    ) private returns (uint256) {
-        address sender = _getMsgSender();
+    ) external returns (uint256) {
+        address sender = msg.sender;
         // Check there is no existing offer for this NFT
         // Technically the offerId could be 0, but the likelihood is negligible
         require(nftToOffer[nftInfo.tokenId] == 0, "NFT already on sale");
@@ -115,26 +113,8 @@ contract Marketplace is Ownable, IERC721Receiver, GelatoRelayContextERC2771 {
         return offerId;
     }
 
-    function createOffer(
-        PurchaseTokenInfo memory tokenInfo,
-        NFTInfo memory nftInfo,
-        uint256 expiresAt
-    ) external returns (uint256) {
-        return _createOffer(tokenInfo, nftInfo, expiresAt);
-    }
-
-    function createOfferRelayed(
-        PurchaseTokenInfo memory tokenInfo,
-        NFTInfo memory nftInfo,
-        uint256 expiresAt
-    ) external returns (uint256) {
-        require(_isGelatoRelayERC2771(msg.sender), "Only Gelato Relayer");
-        _transferRelayFee();
-        return _createOffer(tokenInfo, nftInfo, expiresAt);
-    }
-
-    function _cancelOffer(uint256 offerId) private {
-        address seller = _getMsgSender();
+    function cancelOffer(uint256 offerId) external {
+        address seller = msg.sender;
         Offer storage offer = offers[offerId];
         uint256 tokenId = offer.nftInfo.tokenId;
 
@@ -155,18 +135,8 @@ contract Marketplace is Ownable, IERC721Receiver, GelatoRelayContextERC2771 {
         emit OfferCancelled(offerId);
     }
 
-    function cancelOffer(uint256 offerId) external {
-        _cancelOffer(offerId);
-    }
-
-    function cancelOfferRelayed(uint256 offerId) external {
-        require(_isGelatoRelayERC2771(msg.sender), "Only Gelato Relayer");
-        _transferRelayFee();
-        _cancelOffer(offerId);
-    }
-
-    function _buy(uint256 offerId) private {
-        address buyer = _getMsgSender();
+    function buy(uint256 offerId) external payable {
+        address buyer = msg.sender;
         Offer storage offer = offers[offerId];
         address seller = offer.seller;
         uint256 tokenId = offer.nftInfo.tokenId;
@@ -226,16 +196,6 @@ contract Marketplace is Ownable, IERC721Receiver, GelatoRelayContextERC2771 {
         nft.safeTransferFrom(address(this), buyer, tokenId);
 
         emit PurchaseCompleted(offerId, buyer, seller);
-    }
-
-    function buy(uint256 offerId) external payable {
-        _buy(offerId);
-    }
-
-    function buyRelayed(uint256 offerId) external payable {
-        require(_isGelatoRelayERC2771(msg.sender), "Only Gelato Relayer");
-        _transferRelayFee();
-        _buy(offerId);
     }
 
     function onERC721Received(
