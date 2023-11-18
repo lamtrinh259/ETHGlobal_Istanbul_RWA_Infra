@@ -15,6 +15,15 @@ import {
   useDisclosure,
   useBreakpointValue,
   HStack,
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { ChevronRightIcon, ChevronDownIcon } from "@chakra-ui/icons";
@@ -22,6 +31,8 @@ import { Logo } from "../../Reusables/helper";
 import { Unlimit } from "../Unlimit";
 import { useRouter } from "next/router";
 import { HiShoppingBag } from "react-icons/hi";
+import { IoIosNotifications } from "react-icons/io";
+import { useSubscribe } from "../../hooks/useSubscribe";
 
 interface Props {
   className?: string;
@@ -35,6 +46,8 @@ interface NavItem {
 }
 
 export function Header(props: Props) {
+  const { isSubscribed, subscribe, isSubscribing, messages } = useSubscribe();
+
   const className = props.className ?? "";
   const { isOpen, onToggle } = useDisclosure();
   const router = useRouter();
@@ -78,13 +91,41 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4} mr={4}>
-        <Link onClick={() => router.push("/market")} fontSize={"large"}>
-          <HStack>
-            <HiShoppingBag />
-            <Text fontWeight={"bold"}>Marketplace</Text>
-          </HStack>
-        </Link>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <HStack>
+              <HiShoppingBag /> <Text>Assets</Text>
+            </HStack>
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => router.push("/market")} >Marketplace</MenuItem>
+            <MenuItem onClick={() => router.push("/assets")} >Assets</MenuItem>
+          </MenuList>
+        </Menu>
+
         <Unlimit />
+        <Popover>
+          <PopoverTrigger>
+            <Button isLoading={isSubscribing} onClick={async () => {
+              !isSubscribed && await subscribe();
+            }}>
+              <IoIosNotifications />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>Notifications</PopoverHeader>
+            <PopoverBody>
+              <Stack>
+                {messages.map(m => <Stack gap={1} borderBottom={"1px solid gray"}>
+                  <Text fontWeight={"bold"}>{m.message.title}</Text>
+                  <Text fontSize={"small"}>{m.message.body}</Text>
+                </Stack>)}
+              </Stack>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
         <ConnectButton
           accountStatus={{
             smallScreen: "address",
@@ -99,7 +140,7 @@ export function Header(props: Props) {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav />
       </Collapse>
-    </Flex>
+    </Flex >
   );
 }
 

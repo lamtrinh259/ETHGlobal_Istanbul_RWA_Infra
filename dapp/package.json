@@ -19,6 +19,8 @@
     "@pushprotocol/uiweb": "^1.1.19",
     "@rainbow-me/rainbowkit": "^1.2.0",
     "@types/canvas-confetti": "^1.6.3",
+    "@web3inbox/core": "^0.0.22",
+    "@web3inbox/widget-react": "^0.6.25",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-less": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
