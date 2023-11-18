@@ -79,7 +79,6 @@ export async function getIpfsObjectHash(args: ReadIpfsArgs) {
       // unexpected error
       throw new Error("No IPFS metadata in response.");
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     if (e?.name === "NotFound") {
       return null;
