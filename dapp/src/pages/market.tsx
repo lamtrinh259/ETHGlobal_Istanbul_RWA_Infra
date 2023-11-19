@@ -54,8 +54,8 @@ const Assets: NextPage = () => {
 
             </Flex>
             <Stack>
-                {listings.map((l) => {
-                    return <HStack>
+                {listings.map((l,i) => {
+                    return <HStack key={i}>
                         <Text>{l.seller}</Text>
                         <Button onClick={async () => {
                             await buyProduct(
