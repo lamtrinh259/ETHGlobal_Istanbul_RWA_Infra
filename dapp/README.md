@@ -1,6 +1,8 @@
+- listing modal use real data, price, currency, usd value
+
 - conditional gating
-- push chat
-- notification
+- push chat (create group)
+- notification (new item, push )
 - Change network (icon)
 
 

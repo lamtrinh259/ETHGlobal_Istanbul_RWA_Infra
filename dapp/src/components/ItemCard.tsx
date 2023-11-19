@@ -1,4 +1,4 @@
-import { Text, Box, Img, Stack, HStack, Tag, TagLeftIcon, TagLabel, Divider, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Input } from "@chakra-ui/react"
+import { Text, Box, Img, Stack, HStack, Tag, TagLeftIcon, TagLabel, Divider, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Input, Spinner } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { FaTag } from "react-icons/fa"
 import { IoDiamondOutline } from "react-icons/io5"
@@ -14,11 +14,9 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
         category: "Jewellery",
         condition: "Acceptable",
         description: "",
-        price: 785.3,
-        currency: "USDC",
         image: "/example-item.png"
     }
-    const [imgSrc, setImg] = useState("/example-item.png")
+    const [imgSrc, setImg] = useState("")
     useEffect(() => {
         if (!nftJson || !nftJson.image.includes("ipfs")) return;
         request<{ data: string }>(`/api/get-ipfs-image?cid=` + nftJson.image).then(data => {
@@ -34,10 +32,10 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
         cursor={"pointer"}
         onClick={() => {
             isMarket ?
-                router.push("/product/1?market=true") :
-                router.push("/product/1")
+                router.push(`/product/${metadata?.replace("ipfs://", "")}?market=true`) :
+                router.push(`/product/${metadata?.replace("ipfs://", "")}`)
         }}
-        h="400px"
+        h={isMarket ? "400px" : "360px"}
         w="276px"
         overflow={"hidden"}
         background={"#E7E8FF"}
@@ -50,10 +48,11 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
             gap={2}
         >
             <Box w={"full"} h="196.941px">
-                <Img
+                {imgSrc ? <Img
                     rounded={"10px"}
                     objectFit={"cover"}
                     src={imgSrc} w={"full"} h={"full"} />
+                    : <Spinner />}
             </Box>
             <Text >{nftJson.name}</Text>
 
@@ -66,18 +65,18 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
                 ))}
             </HStack>
 
-            <Divider borderColor={"#CBCCE0"} />
+            {isMarket && <Divider borderColor={"#CBCCE0"} />}
 
-            <HStack fontWeight={"bold"} fontSize="22px">
+            {isMarket && <HStack fontWeight={"bold"} fontSize="22px">
                 <IoDiamondOutline width={"full"} height={"full"} />
-                <Text>${nftJson.price}</Text>
-            </HStack>
+                <Text>$250</Text>
+            </HStack>}
         </Stack>
         {isMarket ?
             <Button rounded={0} h={"45px"} pos={"absolute"} bottom={0} w={"full"}>
                 Buy Asset
             </Button> :
-            <Button onClick={(e) => {
+            <Button isLoading={!nftJson} onClick={(e) => {
                 e.stopPropagation();
                 onOpen();
             }} rounded={0} h={"45px"} pos={"absolute"} bottom={0} w={"full"}>
@@ -85,7 +84,7 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
             </Button>
         }
 
-        <SellModel isOpen={isOpen} onClose={onClose} src={imgSrc} />
+        {nftJson && <SellModel nftJson={nftJson} isOpen={isOpen} onClose={onClose} src={imgSrc} />}
     </Stack>
 
 }

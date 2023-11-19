@@ -1,4 +1,4 @@
-import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel, useDisclosure, Link } from "@chakra-ui/react"
+import { Text, Grid, Box, Center, Image, TabList, Tab, TabPanels, TabPanel, Button, Stack, HStack, Tag, TagLeftIcon, TagLabel, useDisclosure, Link, Spinner } from "@chakra-ui/react"
 import { useAtom } from "jotai";
 import { uploadedImgAtom } from "../../store/uploaded";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -8,19 +8,33 @@ import { useRouter } from "next/router";
 import { SellModel } from "../../components/SellModel";
 import { BsStars } from "react-icons/bs";
 import { chatAtom, chatOpenAtom } from "../../store/chat";
+import { useNFTJson } from "../../hooks/useNFTJson";
+import { useEffect, useState } from "react";
+import { request } from "../../Reusables/request";
 
 const Product = () => {
+    const router = useRouter();
+    const metadata = router.query.slug as string;
+    let { data: nftJson } = useNFTJson(metadata);
+
+    const [imgSrc, setImg] = useState("")
+    useEffect(() => {
+        if (!nftJson || !nftJson.image.includes("ipfs")) return;
+        request<{ data: string }>(`/api/get-ipfs-image?cid=` + nftJson.image).then(data => {
+            setImg(data.data)
+        })
+    }, [setImg, nftJson?.image])
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [chatId, setChatId] = useAtom(chatAtom);
     const [chatOpen, setChatOpen] = useAtom(chatOpenAtom);
 
-    const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
-    const router = useRouter();
     const isMarket = router.query.market === "true";
 
+    if (!nftJson) return <Spinner />
     return <Grid w={"100vw"} h="100vh" templateColumns='repeat(2, 1fr)' gap={0}>
         <Box
-            backgroundImage={uploadedImg}
+            backgroundImage={imgSrc}
             backgroundSize={"contain"}
             backgroundPosition={"center"}
         />
@@ -29,10 +43,10 @@ const Product = () => {
                 <Link href={isMarket ? "/market" : "/assets"}>
                     <Text cursor="pointer" _hover={{ textDecoration: "underline" }}><ArrowBackIcon mr={2} />{isMarket ? "MARKET" : "YOUR ASSETS"}</Text>
                 </Link>
-                <Text fontSize={"35px"}>Martha Jackson’s Mens Silver Bracelet</Text>
+                <Text fontSize={"35px"}>{nftJson.name}</Text>
 
                 <HStack spacing={4}>
-                    {['Jewellery', 'Acceptable'].map((name) => (
+                    {[nftJson.category, nftJson.condition].map((name) => (
                         <Tag background={"transparent"} key={name} variant='subtle' colorScheme='gray' border={"1px solid black"}>
                             <TagLeftIcon boxSize='12px' as={FaTag} />
                             <TagLabel>{name}</TagLabel>
@@ -40,14 +54,14 @@ const Product = () => {
                     ))}
                 </HStack>
 
-                <HStack fontWeight={"bold"} fontSize="35px" >
+                {isMarket && <HStack fontWeight={"bold"} fontSize="35px" >
                     <IoDiamondOutline width={"full"} height={"full"} />
                     <Text>$785.3</Text>
-                </HStack>
+                </HStack>}
 
                 <Box>
                     <Text mb={2} fontWeight={"bold"}>Description</Text>
-                    <Text >This exquisite piece radiates brilliance with its immaculate facets, ensuring a mesmerizing sparkle that captivates every gaze. Set in a refined platinum band, this ring is a symbol of enduring love and sophistication. Elevate your moments with this statement piece, a celebration of exceptional craftsmanship and the pure beauty of a flawless diamond</Text>
+                    <Text >{nftJson.description}</Text>
                 </Box>
 
                 <Box>
@@ -64,7 +78,7 @@ const Product = () => {
                             > exwhyzee.eth</Text>
                         </HStack>
                         <Link onClick={() => {
-                            setChatId("0x93a94718805d771E75383FB510fd69f0BA023A06")
+                            setChatId("89f7b382b9b1496dca2b9a94ef87c80dd102db05dcb40b165fabfab28770fd55")
                             setChatOpen(true)
                         }}>
                             <HStack
@@ -105,7 +119,8 @@ const Product = () => {
                 }
             </Box>
         </Box>
-        <SellModel isOpen={isOpen} onClose={onClose} src={"/example-item.png"} />
+
+        {nftJson && <SellModel nftJson={nftJson} isOpen={isOpen} onClose={onClose} src={imgSrc} />}
     </Grid >
 }
 

@@ -24,18 +24,18 @@ export const ListingForm = () => {
                 <Tabs w={"full"} index={stage - 1} isLazy>
                     <TabList>
                         <Tab>1. Describe</Tab>
-                        <Tab>2. Value</Tab>
-                        <Tab>3. Tokenize</Tab>
-                        <Tab>4. Result</Tab>
+                        {/* <Tab>2. Value</Tab> */}
+                        <Tab>2. Tokenize</Tab>
+                        <Tab>3. Result</Tab>
                     </TabList>
 
                     <TabPanels>
                         <TabPanel>
                             <DescribeForm />
                         </TabPanel>
-                        <TabPanel>
+                        {/* <TabPanel>
                             <ValuesForm />
-                        </TabPanel>
+                        </TabPanel> */}
                         <TabPanel>
                             <TokenizeForm />
                         </TabPanel>
@@ -51,7 +51,6 @@ export const ListingForm = () => {
                 }}>Proceed</Button>}
                 {stage === Stage.confirm && <Button
                     onClick={() => {
-                        setStage(stage + 1)
                         router.push("/assets")
                     }}>See your Assets</Button>}
             </Box>

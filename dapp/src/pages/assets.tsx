@@ -2,8 +2,6 @@ import { Input, InputLeftElement, Text, Box, Center, Flex, Tab, TabList, TabPane
 import { NextPage } from "next";
 import { ItemCard } from "../components/ItemCard";
 import { ValuesForm } from "../components/ValuesForm";
-import { useAtom } from "jotai";
-import { uploadedImgAtom } from "../store/uploaded";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useAllAssets } from "../hooks/useAllAssets";
 
@@ -48,8 +46,8 @@ const Assets: NextPage = () => {
                         {
                             assets.map((asset, i) => <ItemCard metadata={asset} key={i} />)
                         }
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
-                            (i) => <ItemCard key={i + 10086} />)}
+                        {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
+                            (i) => <ItemCard key={i + 10086} />)} */}
                     </Flex>
                 </TabPanel>
                 <TabPanel>
