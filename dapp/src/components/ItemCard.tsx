@@ -16,7 +16,7 @@ export const ItemCard = ({ metadata, isMarket = false, tokenId }: { isMarket?: b
         description: "",
         image: "/example-item.png"
     }
-    const [imgSrc, setImg] = useState("/example-item.png")
+    const [imgSrc, setImg] = useState("")
     useEffect(() => {
         if (!nftJson || !nftJson.image.includes("ipfs")) return;
         request<{ data: string }>(`/api/get-ipfs-image?cid=` + nftJson.image).then(data => {
