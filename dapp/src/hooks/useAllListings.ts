@@ -28,19 +28,22 @@ export function useAllListings() {
       const events = await contract.queryFilter(filter);
       const offers = events.map((event) => event.args);
       setListings(
-        offers.map((x) => ({
-          seller: x?.seller,
-          tokenInfo: {
-            amount: x?.tokenInfo.amount,
-            fees: x?.tokenInfo.fees,
-            tokenAddress: x?.tokenInfo.tokenAddress,
-          },
-          nftInfo: {
-            nftAddress: x?.nftInfo.nftAddress,
-            tokenId: x?.nftInfo.tokenId,
-          },
-          expiresAt: x?.expiresAt,
-        }))
+        offers.map(
+          (x) =>
+            ({
+              seller: x?.seller,
+              tokenInfo: {
+                amount: x?.tokenInfo.amount,
+                fees: x?.tokenInfo.fees,
+                tokenAddress: x?.tokenInfo.tokenAddress,
+              },
+              nftInfo: {
+                nftAddress: x?.nftInfo.nftAddress,
+                tokenId: x?.nftInfo.tokenId,
+              },
+              offerId: x?.offerId,
+            } as any)
+        )
       );
     })();
   }, [publicClient, client, chain]);
