@@ -16,6 +16,7 @@ export type Offer = {
   tokenInfo: TokenInfo;
   nftInfo: NFTInfo;
   expiresAt: BigNumberish;
+  offerId: BigNumberish;
 };
 
 export type Bid = {

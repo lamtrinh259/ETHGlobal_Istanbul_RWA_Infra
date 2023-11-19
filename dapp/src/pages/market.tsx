@@ -1,11 +1,19 @@
-import { Input, InputLeftElement, Text, Box, Center, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Stack, InputGroup } from "@chakra-ui/react";
+import { Input, InputLeftElement, Text, Box, Center, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Stack, InputGroup, Button, HStack } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { ItemCard } from "../components/ItemCard";
 import { useAtom } from "jotai";
 import { uploadedImgAtom } from "../store/uploaded";
 import { SearchIcon } from "@chakra-ui/icons";
+import { useAllListings } from "../hooks/useAllListings";
+import { buyProduct, cancelListing } from "../lib/marketplace";
+import { useNetwork, usePublicClient, useWalletClient } from "wagmi";
 
 const Assets: NextPage = () => {
+    const listings = useAllListings();
+    const network = useNetwork();
+    const { data: client } = useWalletClient();
+    const publicClient = usePublicClient();
+
     const [uploadedImg, _] = useAtom(uploadedImgAtom);
     return <Box
     >
@@ -29,16 +37,51 @@ const Assets: NextPage = () => {
             minH={"100vh"}
             bg={"#E5E2FF"}
             px={8} pt={"50px"}
-            pb={"100px"} 
+            pb={"100px"}
             w={"full"} >
             <Flex justifyContent="center" gap={12} flexWrap="wrap">
+                {/* {listings.map((listing, i) => <ItemCard
+                    isMarket
+                    key={i}
+                    metadata={listing.metaIpfs}
+                    tokenId={listing.nftInfo.tokenId}
+                />)} */}
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
                     (i) => <ItemCard
                         isMarket
-                        key={i} 
-                        tokenId={i}/>)}
-            </Flex>
+                        key={i} src={i === 1 && !uploadedImg.includes("example") ? uploadedImg : "./example-item.png"} />)}
 
+
+            </Flex>
+            <Stack>
+                {listings.map((l) => {
+                    return <HStack>
+                        <Text>{l.seller}</Text>
+                        <Button onClick={async () => {
+                            await buyProduct(
+                                l.offerId!,
+                                network.chain?.id!,
+                                client!,
+                                publicClient
+                            )
+                            alert("buy succeed")
+                        }}>
+                            Buy
+                        </Button>
+                        <Button onClick={async () => {
+                            await cancelListing(
+                                l.offerId!,
+                                network.chain?.id!,
+                                client!,
+                                publicClient
+                            )
+                            alert("cancel succeed")
+                        }}>
+                            Cancel
+                        </Button>
+                    </HStack>
+                })}
+            </Stack>
         </Box>
     </Box>
 }

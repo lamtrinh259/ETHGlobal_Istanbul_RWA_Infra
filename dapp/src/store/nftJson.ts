@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { Offer } from "../types";
 
 export type NFTJson = {
     name: string,
@@ -10,3 +11,5 @@ export type NFTJson = {
     image: string
 }
 export const nftJsonAtom = atom<NFTJson>({} as any as NFTJson);
+
+export const marketListingAtom = atom<Offer[]>([]);

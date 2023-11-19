@@ -98,12 +98,19 @@ export async function buyProduct(
   publicClient: PublicClient
 ) {
   const marketplaceContract = await getMarketplaceContractAddress(chainId);
+  const offer = (await publicClient.readContract({
+    address: marketplaceContract as `0x${string}`,
+    abi: marketplaceConfig.abi,
+    functionName: "getOffer",
+    args: [offerId],
+  } as any)) as Offer;
   const txHash = await client.writeContract({
     address: marketplaceContract as `0x${string}`,
     abi: marketplaceConfig.abi,
     functionName: "buy",
     account: client.account?.address as `0x${string}`,
     args: [offerId],
+    value: ethers.BigNumber.from(offer.tokenInfo.amount).add(offer.tokenInfo.fees), 
   } as any);
   console.log("txHash", txHash);
   await publicClient.waitForTransactionReceipt({
