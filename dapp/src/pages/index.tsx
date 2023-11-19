@@ -31,7 +31,6 @@ const Home: NextPage = () => {
   const [stage, setStage] = useAtom(stageAtom);
   const [uploadedImg, seUploadedImg] = useAtom(uploadedImgAtom);
   const [isLoading, setIsLoading] = useState(false);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   /*useEffect(() => {
