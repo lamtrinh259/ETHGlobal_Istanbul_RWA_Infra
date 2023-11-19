@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-type NFTJson = {
+export type NFTJson = {
     name: string,
     category: string
     condition: string

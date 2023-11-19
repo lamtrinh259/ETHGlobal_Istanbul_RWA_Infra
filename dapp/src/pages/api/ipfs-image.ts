@@ -5,8 +5,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
-
-    var fs = require('fs')
     var Readable = require('stream').Readable
     const imgBuffer = Buffer.from(req.body, 'base64')
     var s = new Readable()

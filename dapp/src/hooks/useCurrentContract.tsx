@@ -14,5 +14,5 @@ export function useCurrentContract() {
     setContract(getDeployedContract(address, chain.id));
   }, [chain, address]);
 
-  return contract;
+  return contract as `0x${string}`;
 }

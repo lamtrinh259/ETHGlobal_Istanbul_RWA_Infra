@@ -81,15 +81,11 @@ export const TokenizeForm = () => {
             // upload image
             const res = await request<PinataPinResponse>("/api/ipfs-image", "POST", {}, uploadedImg);
 
-            console.log("res1", res);
-
             // upload metadata
             const res2 = await request<PinataPinResponse>("/api/ipfs-json", "POST", {}, {
               ...nftJson,
               image: `ipfs://${res.IpfsHash}`
             });
-
-            console.log("res2", res2);
 
             await mintNFT(contractAddress, res2.IpfsHash);
             setStage(stage + 1);

@@ -3,10 +3,24 @@ import { useRouter } from "next/router"
 import { FaTag } from "react-icons/fa"
 import { IoDiamondOutline } from "react-icons/io5"
 import { SellModel } from "./SellModel"
+import { useNFTJson } from "../hooks/useNFTJson"
+import { ipfsConvert } from "../Reusables/ipfsConvert"
 
-export const ItemCard = ({ src, isMarket = false }: { src: string, isMarket?: boolean }) => {
+export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, metadata?: string }) => {
+    let { data: nftJson } = useNFTJson(metadata);
+    if (!nftJson) nftJson = {
+        name: "Martha Jackson’s Mens Silver Bracelet",
+        category: "Jewellery",
+        condition: "Acceptable",
+        description: "",
+        price: 785.3,
+        currency: "USDC",
+        image: "/example-item.png"
+    }
+    const imgSrc = nftJson.image.includes("ipfs") ? `/api/get-ipfs-image?cid=` + nftJson.image : nftJson.image;
     const { isOpen, onOpen, onClose } = useDisclosure()
     const router = useRouter();
+
     return <Stack
         shadow={"lg"}
         cursor={"pointer"}
@@ -31,12 +45,12 @@ export const ItemCard = ({ src, isMarket = false }: { src: string, isMarket?: bo
                 <Img
                     rounded={"10px"}
                     objectFit={"cover"}
-                    src={src} w={"full"} h={"full"} />
+                    src={imgSrc} w={"full"} h={"full"} />
             </Box>
-            <Text >Martha Jackson’s Mens Silver Bracelet</Text>
+            <Text >{nftJson.name}</Text>
 
             <HStack spacing={4}>
-                {['Jewellery', 'Acceptable'].map((name) => (
+                {[nftJson.category, nftJson.condition].map((name) => (
                     <Tag background={"transparent"} key={name} variant='subtle' colorScheme='gray' border={"1px solid black"}>
                         <TagLeftIcon boxSize='12px' as={FaTag} />
                         <TagLabel>{name}</TagLabel>
@@ -48,7 +62,7 @@ export const ItemCard = ({ src, isMarket = false }: { src: string, isMarket?: bo
 
             <HStack fontWeight={"bold"} fontSize="22px">
                 <IoDiamondOutline width={"full"} height={"full"} />
-                <Text>$785.3</Text>
+                <Text>${nftJson.price}</Text>
             </HStack>
         </Stack>
         {isMarket ?
@@ -63,7 +77,7 @@ export const ItemCard = ({ src, isMarket = false }: { src: string, isMarket?: bo
             </Button>
         }
 
-        <SellModel isOpen={isOpen} onClose={onClose} src={src} />
+        <SellModel isOpen={isOpen} onClose={onClose} src={imgSrc} />
     </Stack>
 
 }

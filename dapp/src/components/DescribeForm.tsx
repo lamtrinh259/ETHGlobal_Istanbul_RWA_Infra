@@ -23,11 +23,11 @@ export const DescribeForm = () => {
                     onChange={(e) => setNftJson({ ...nftJson, category: e.target.value })}
                     backgroundColor={"#D8DAF6"}
                     placeholder='Select option'>
-                    <option value='option1'>Jewellery</option>
-                    <option value='option2'>Watch</option>
-                    <option value='option3'>Sunglass</option>
-                    <option value='option4'>Electronics</option>
-                    <option value='option5'>Others</option>
+                    <option value='Jewellery'>Jewellery</option>
+                    <option value='Watch'>Watch</option>
+                    <option value='Sunglass'>Sunglass</option>
+                    <option value='Electronics'>Electronics</option>
+                    <option value='Others'>Others</option>
                 </Select>
             </Box>
             <Box flexGrow={1}>
@@ -36,10 +36,10 @@ export const DescribeForm = () => {
                     onChange={(e) => setNftJson({ ...nftJson, condition: e.target.value })}
                     backgroundColor={"#D8DAF6"}
                     placeholder='Select option'>
-                    <option value='option1'>New</option>
-                    <option value='option2'>Good</option>
-                    <option value='option3'>Acceptable</option>
-                    <option value='option4'>Damaged</option>
+                    <option value='New'>New</option>
+                    <option value='Good'>Good</option>
+                    <option value='Acceptable'>Acceptable</option>
+                    <option value='Damaged'>Damaged</option>
                 </Select>
             </Box>
         </HStack>
