@@ -1,7 +1,6 @@
 import { Input, InputLeftElement, Text, Box, Center, Flex, Tab, TabList, TabPanel, TabPanels, Tabs, Stack, InputGroup } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { ItemCard } from "../components/ItemCard";
-import { ValuesForm } from "../components/ValuesForm";
 import { useAtom } from "jotai";
 import { uploadedImgAtom } from "../store/uploaded";
 import { SearchIcon } from "@chakra-ui/icons";
@@ -36,7 +35,8 @@ const Assets: NextPage = () => {
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
                     (i) => <ItemCard
                         isMarket
-                        key={i} src={i === 1 && !uploadedImg.includes("example") ? uploadedImg : "./example-item.png"} />)}
+                        key={i} 
+                        tokenId={i}/>)}
             </Flex>
 
         </Box>

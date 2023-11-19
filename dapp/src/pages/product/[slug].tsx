@@ -14,10 +14,19 @@ import { request } from "../../Reusables/request";
 
 const Product = () => {
     const router = useRouter();
+    const isMarket = router.query.market === "true";
+
     const metadata = router.query.slug as string;
     let { data: nftJson } = useNFTJson(metadata);
+    if (!nftJson) nftJson = {
+        name: "Martha Jackson’s Mens Silver Bracelet",
+        category: "Jewellery",
+        condition: "Acceptable",
+        description: "This exquisite piece radiates brilliance with its immaculate facets, ensuring a mesmerizing sparkle that captivates every gaze. Set in a refined platinum band, this ring is a symbol of enduring love and sophistication. Elevate your moments with this statement piece, a celebration of exceptional craftsmanship and the pure beauty of a flawless diamond",
+        image: "/example-item.png"
+    }
 
-    const [imgSrc, setImg] = useState("")
+    const [imgSrc, setImg] = useState(isMarket ? "/example-item.png" : "")
     useEffect(() => {
         if (!nftJson || !nftJson.image.includes("ipfs")) return;
         request<{ data: string }>(`/api/get-ipfs-image?cid=` + nftJson.image).then(data => {
@@ -29,7 +38,6 @@ const Product = () => {
     const [chatId, setChatId] = useAtom(chatAtom);
     const [chatOpen, setChatOpen] = useAtom(chatOpenAtom);
 
-    const isMarket = router.query.market === "true";
 
     if (!nftJson) return <Spinner />
     return <Grid w={"100vw"} h="100vh" templateColumns='repeat(2, 1fr)' gap={0}>
