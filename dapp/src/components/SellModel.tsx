@@ -1,4 +1,4 @@
-import { Text, Box, HStack, Img, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Tag, TagLeftIcon, TagLabel, Divider, Input, ModalFooter, Button, Select } from "@chakra-ui/react"
+import { Text, Box, HStack, Img, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Stack, Tag, TagLeftIcon, TagLabel, Divider, Input, ModalFooter, Button, Select, useToast } from "@chakra-ui/react"
 import { FaTag } from "react-icons/fa"
 import { NFTJson } from "../store/nftJson"
 import { useState } from "react";
@@ -9,6 +9,8 @@ import { ethers } from "ethers";
 import { usePriceFeeds } from "../hooks/usePriceFeed";
 
 export const SellModel = ({ tokenId, nftJson, src, isOpen, onClose }: { nftJson: NFTJson, src: string, isOpen: boolean, onClose: () => void, tokenId: number }) => {
+    const toast = useToast();
+
     const prices = usePriceFeeds();
     console.log(prices);
     const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -122,6 +124,13 @@ export const SellModel = ({ tokenId, nftJson, src, isOpen, onClose }: { nftJson:
                     await list();
                     onClose()
                     setIsLoading(false);
+                    toast({
+                        title: 'Submitted',
+                        description: "Listed, others can buy",
+                        status: 'success',
+                        duration: 9000,
+                        isClosable: true,
+                    })
                 }}>
                     Complete Listing
                 </Button>
