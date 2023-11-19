@@ -1,4 +1,4 @@
-import ethers from "ethers";
+import { ethers } from "ethers";
 import { HttpTransport, PublicClient, WalletClient } from "viem";
 
 export function getDeployedContract(owner: string, chainId: number) {
@@ -60,4 +60,16 @@ export function walletClientToSigner(walletClient: WalletClient) {
   const provider = new ethers.providers.Web3Provider(transport, network as any);
   const signer = provider.getSigner(account?.address);
   return signer;
+}
+
+export function getMarketplaceContractAddress(chainId: number) {
+  const marketplaceContract =
+    chainId === 534351
+      ? process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_SCROLL
+      : process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT;
+  return marketplaceContract;
+}
+
+export function objectToTuple(obj: any) {
+  return Object.keys(obj).map((key) => obj[key]);
 }

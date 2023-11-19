@@ -1694,54 +1694,22 @@
     "absolutePath": "src/Shop.sol",
     "id": 50719,
     "exportedSymbols": {
-      "Context": [
-        46590
-      ],
-      "ERC165": [
-        48030
-      ],
-      "ERC721": [
-        45672
-      ],
-      "ERC721Burnable": [
-        45836
-      ],
-      "ERC721Enumerable": [
-        46220
-      ],
-      "ERC721Pausable": [
-        46255
-      ],
-      "IERC165": [
-        48042
-      ],
-      "IERC721": [
-        45789
-      ],
-      "IERC721Enumerable": [
-        46287
-      ],
-      "IERC721Errors": [
-        43727
-      ],
-      "IERC721Metadata": [
-        46315
-      ],
-      "IERC721Receiver": [
-        45807
-      ],
-      "Ownable": [
-        43612
-      ],
-      "Pausable": [
-        46775
-      ],
-      "Shop": [
-        50718
-      ],
-      "Strings": [
-        47357
-      ]
+      "Context": [46590],
+      "ERC165": [48030],
+      "ERC721": [45672],
+      "ERC721Burnable": [45836],
+      "ERC721Enumerable": [46220],
+      "ERC721Pausable": [46255],
+      "IERC165": [48042],
+      "IERC721": [45789],
+      "IERC721Enumerable": [46287],
+      "IERC721Errors": [43727],
+      "IERC721Metadata": [46315],
+      "IERC721Receiver": [45807],
+      "Ownable": [43612],
+      "Pausable": [46775],
+      "Shop": [50718],
+      "Strings": [47357]
     },
     "nodeType": "SourceUnit",
     "src": "32:2061:53",
@@ -1751,12 +1719,7 @@
         "nodeType": "PragmaDirective",
         "src": "32:24:53",
         "nodes": [],
-        "literals": [
-          "solidity",
-          "^",
-          "0.8",
-          ".20"
-        ]
+        "literals": ["solidity", "^", "0.8", ".20"]
       },
       {
         "id": 50551,
@@ -1837,9 +1800,7 @@
             "libraryName": {
               "id": 50566,
               "name": "Strings",
-              "nameLocations": [
-                "518:7:53"
-              ],
+              "nameLocations": ["518:7:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 47357,
               "src": "518:7:53"
@@ -1989,9 +1950,7 @@
                 "modifierName": {
                   "id": 50578,
                   "name": "ERC721",
-                  "nameLocations": [
-                    "677:6:53"
-                  ],
+                  "nameLocations": ["677:6:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 45672,
                   "src": "677:6:53"
@@ -2019,9 +1978,7 @@
                 "modifierName": {
                   "id": 50582,
                   "name": "Ownable",
-                  "nameLocations": [
-                    "699:7:53"
-                  ],
+                  "nameLocations": ["699:7:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43612,
                   "src": "699:7:53"
@@ -2137,9 +2094,7 @@
                 "modifierName": {
                   "id": 50589,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "777:9:53"
-                  ],
+                  "nameLocations": ["777:9:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43523,
                   "src": "777:9:53"
@@ -2226,9 +2181,7 @@
                 "modifierName": {
                   "id": 50598,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "844:9:53"
-                  ],
+                  "nameLocations": ["844:9:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43523,
                   "src": "844:9:53"
@@ -2268,9 +2221,7 @@
               "nodes": [],
               "statements": [
                 {
-                  "assignments": [
-                    50615
-                  ],
+                  "assignments": [50615],
                   "declarations": [
                     {
                       "constant": false,
@@ -2373,10 +2324,7 @@
                       "id": 50619,
                       "name": "_safeMint",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        45294,
-                        45320
-                      ],
+                      "overloadedDeclarations": [45294, 45320],
                       "referencedDeclaration": 45294,
                       "src": "1006:9:53",
                       "typeDescriptions": {
@@ -2484,9 +2432,7 @@
                 "modifierName": {
                   "id": 50611,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "944:9:53"
-                  ],
+                  "nameLocations": ["944:9:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43523,
                   "src": "944:9:53"
@@ -2661,9 +2607,7 @@
                 "modifierName": {
                   "id": 50637,
                   "name": "onlyOwner",
-                  "nameLocations": [
-                    "1168:9:53"
-                  ],
+                  "nameLocations": ["1168:9:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 43523,
                   "src": "1168:9:53"
@@ -2862,11 +2806,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              45229,
-              46035,
-              46254
-            ],
+            "baseFunctions": [45229, 46035, 46254],
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -2879,9 +2819,7 @@
                 {
                   "id": 50655,
                   "name": "ERC721",
-                  "nameLocations": [
-                    "1417:6:53"
-                  ],
+                  "nameLocations": ["1417:6:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 45672,
                   "src": "1417:6:53"
@@ -2889,9 +2827,7 @@
                 {
                   "id": 50656,
                   "name": "ERC721Enumerable",
-                  "nameLocations": [
-                    "1425:16:53"
-                  ],
+                  "nameLocations": ["1425:16:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 46220,
                   "src": "1425:16:53"
@@ -2899,9 +2835,7 @@
                 {
                   "id": 50657,
                   "name": "ERC721Pausable",
-                  "nameLocations": [
-                    "1443:14:53"
-                  ],
+                  "nameLocations": ["1443:14:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 46255,
                   "src": "1443:14:53"
@@ -3138,10 +3072,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              45139,
-              46219
-            ],
+            "baseFunctions": [45139, 46219],
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -3154,9 +3085,7 @@
                 {
                   "id": 50676,
                   "name": "ERC721",
-                  "nameLocations": [
-                    "1649:6:53"
-                  ],
+                  "nameLocations": ["1649:6:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 45672,
                   "src": "1649:6:53"
@@ -3164,9 +3093,7 @@
                 {
                   "id": 50677,
                   "name": "ERC721Enumerable",
-                  "nameLocations": [
-                    "1657:16:53"
-                  ],
+                  "nameLocations": ["1657:16:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 46220,
                   "src": "1657:16:53"
@@ -3331,10 +3258,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              44764,
-              45900
-            ],
+            "baseFunctions": [44764, 45900],
             "functionSelector": "01ffc9a7",
             "implemented": true,
             "kind": "function",
@@ -3348,9 +3272,7 @@
                 {
                   "id": 50692,
                   "name": "ERC721",
-                  "nameLocations": [
-                    "1818:6:53"
-                  ],
+                  "nameLocations": ["1818:6:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 45672,
                   "src": "1818:6:53"
@@ -3358,9 +3280,7 @@
                 {
                   "id": 50693,
                   "name": "ERC721Enumerable",
-                  "nameLocations": [
-                    "1826:16:53"
-                  ],
+                  "nameLocations": ["1826:16:53"],
                   "nodeType": "IdentifierPath",
                   "referencedDeclaration": 46220,
                   "src": "1826:16:53"
@@ -3497,9 +3417,7 @@
                 }
               ]
             },
-            "baseFunctions": [
-              44859
-            ],
+            "baseFunctions": [44859],
             "functionSelector": "c87b56dd",
             "implemented": true,
             "kind": "function",
@@ -3592,9 +3510,7 @@
             "baseName": {
               "id": 50556,
               "name": "ERC721",
-              "nameLocations": [
-                "424:6:53"
-              ],
+              "nameLocations": ["424:6:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 45672,
               "src": "424:6:53"
@@ -3607,9 +3523,7 @@
             "baseName": {
               "id": 50558,
               "name": "ERC721Enumerable",
-              "nameLocations": [
-                "436:16:53"
-              ],
+              "nameLocations": ["436:16:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 46220,
               "src": "436:16:53"
@@ -3622,9 +3536,7 @@
             "baseName": {
               "id": 50560,
               "name": "ERC721Pausable",
-              "nameLocations": [
-                "458:14:53"
-              ],
+              "nameLocations": ["458:14:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 46255,
               "src": "458:14:53"
@@ -3637,9 +3549,7 @@
             "baseName": {
               "id": 50562,
               "name": "Ownable",
-              "nameLocations": [
-                "478:7:53"
-              ],
+              "nameLocations": ["478:7:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 43612,
               "src": "478:7:53"
@@ -3652,9 +3562,7 @@
             "baseName": {
               "id": 50564,
               "name": "ERC721Burnable",
-              "nameLocations": [
-                "491:14:53"
-              ],
+              "nameLocations": ["491:14:53"],
               "nodeType": "IdentifierPath",
               "referencedDeclaration": 45836,
               "src": "491:14:53"
@@ -3669,48 +3577,17 @@
         "contractKind": "contract",
         "fullyImplemented": true,
         "linearizedBaseContracts": [
-          50718,
-          45836,
-          43612,
-          46255,
-          46775,
-          46220,
-          46287,
-          45672,
-          43727,
-          46315,
-          45789,
-          48030,
-          48042,
-          46590
+          50718, 45836, 43612, 46255, 46775, 46220, 46287, 45672, 43727, 46315,
+          45789, 48030, 48042, 46590
         ],
         "name": "Shop",
         "nameLocation": "412:4:53",
         "scope": 50719,
         "usedErrors": [
-          43478,
-          43483,
-          43685,
-          43690,
-          43699,
-          43704,
-          43709,
-          43716,
-          43721,
-          43726,
-          45873,
-          45876,
-          46680,
-          46683
+          43478, 43483, 43685, 43690, 43699, 43704, 43709, 43716, 43721, 43726,
+          45873, 45876, 46680, 46683
         ],
-        "usedEvents": [
-          43489,
-          45688,
-          45697,
-          45706,
-          46672,
-          46677
-        ]
+        "usedEvents": [43489, 45688, 45697, 45706, 46672, 46677]
       }
     ],
     "license": "MIT"
