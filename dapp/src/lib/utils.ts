@@ -29,7 +29,7 @@ export function saveDeployedContract(
 
 export function getJSONRPCProvider() {
   return new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_JSON_RPC_URL
+    process.env.NEXT_PUBLIC_BASE_GOERLI_RPC_URL
   );
 }
 
