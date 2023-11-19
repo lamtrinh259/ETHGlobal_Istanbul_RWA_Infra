@@ -25,6 +25,7 @@ import QRCode from "react-qr-code";
 import { request } from "../Reusables/request";
 import { uploadedImgAtom } from "../store/uploaded";
 import { getOrCreateSafe, initAuthKit } from "../lib/safe-kit";
+import { usePriceFeeds } from "../hooks/usePriceFeed";
 
 const Home: NextPage = () => {
   const [stage, setStage] = useAtom(stageAtom);
