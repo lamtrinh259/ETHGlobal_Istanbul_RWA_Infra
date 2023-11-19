@@ -8,9 +8,10 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { useAllAssets } from "../hooks/useAllAssets";
 
 const Assets: NextPage = () => {
-
     const { data: assets, isLoading } = useAllAssets();
-    if (isLoading) return <Spinner />
+    if (isLoading) return <Center pt={"200px"}>
+        <Spinner />
+    </Center>
 
     return <Box
     >

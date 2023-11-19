@@ -1,5 +1,9 @@
+- conditional gating
+- push chat
+- notification
 - Change network (icon)
-- check other UIs
+
+
 
 > install your dependencies:
 

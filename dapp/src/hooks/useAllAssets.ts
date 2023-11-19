@@ -12,7 +12,7 @@ export const useAllAssets = () => {
 
     useEffect(() => {
         async function doit() {
-            if (!client) return;
+            if (!client || !contract) return;
             setIsLoading(true);
             const total = await publicClient.readContract(
                 {
@@ -37,6 +37,6 @@ export const useAllAssets = () => {
             setIsLoading(false);
         }
         doit();
-    }, [client, publicClient, setAssets])
+    }, [client, publicClient, setAssets, contract])
     return { data: assets, isLoading };
 }

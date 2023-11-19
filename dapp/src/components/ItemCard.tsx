@@ -4,7 +4,8 @@ import { FaTag } from "react-icons/fa"
 import { IoDiamondOutline } from "react-icons/io5"
 import { SellModel } from "./SellModel"
 import { useNFTJson } from "../hooks/useNFTJson"
-import { ipfsConvert } from "../Reusables/ipfsConvert"
+import { useEffect, useState } from "react"
+import { request } from "../Reusables/request"
 
 export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, metadata?: string }) => {
     let { data: nftJson } = useNFTJson(metadata);
@@ -17,7 +18,14 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
         currency: "USDC",
         image: "/example-item.png"
     }
-    const imgSrc = nftJson.image.includes("ipfs") ? `/api/get-ipfs-image?cid=` + nftJson.image : nftJson.image;
+    const [imgSrc, setImg] = useState("/example-item.png")
+    useEffect(() => {
+        if (!nftJson || !nftJson.image.includes("ipfs")) return;
+        request<{ data: string }>(`/api/get-ipfs-image?cid=` + nftJson.image).then(data => {
+            setImg(data.data)
+        })
+    }, [setImg, nftJson.image])
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const router = useRouter();
 
