@@ -6,10 +6,14 @@ import { listProduct } from "../lib/marketplace";
 import { useCurrentContract } from "../hooks/useCurrentContract";
 import { useNetwork, usePublicClient, useWalletClient } from "wagmi";
 import { ethers } from "ethers";
+import { usePriceFeeds } from "../hooks/usePriceFeed";
 
 export const SellModel = ({ tokenId, nftJson, src, isOpen, onClose }: { nftJson: NFTJson, src: string, isOpen: boolean, onClose: () => void, tokenId: number }) => {
+    const prices = usePriceFeeds();
+    console.log(prices);
     const [amount, setAmount] = useState<number | undefined>(undefined);
-    const price = 2;
+    const [coin, setCoin] = useState<string>("USDC");
+    const price = coin === "USDC" ? prices.usdc_usd : prices.eth_usd;
     const contract = useCurrentContract();
     const network = useNetwork();
     const { data: client } = useWalletClient();
@@ -67,7 +71,7 @@ export const SellModel = ({ tokenId, nftJson, src, isOpen, onClose }: { nftJson:
                             <Box flexGrow={1}>
                                 <Text mb={2}>Currency</Text>
                                 <Select
-                                    // onChange={(e) => setNftJson({ ...nftJson, currency: e.target.value })}
+                                    onChange={(e) => setCoin(e.target.value)}
                                     backgroundColor={"#D8DAF6"}
                                     placeholder='Select option'>
                                     <option value='USDC'>USDC</option>
