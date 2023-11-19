@@ -7,7 +7,7 @@ import { useNFTJson } from "../hooks/useNFTJson"
 import { useEffect, useState } from "react"
 import { request } from "../Reusables/request"
 
-export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, metadata?: string }) => {
+export const ItemCard = ({ metadata, isMarket = false, tokenId }: { isMarket?: boolean, metadata?: string, tokenId: number }) => {
     let { data: nftJson } = useNFTJson(metadata);
     if (!nftJson) nftJson = {
         name: "Martha Jackson’s Mens Silver Bracelet",
@@ -84,7 +84,7 @@ export const ItemCard = ({ metadata, isMarket = false }: { isMarket?: boolean, m
             </Button>
         }
 
-        {nftJson && <SellModel nftJson={nftJson} isOpen={isOpen} onClose={onClose} src={imgSrc} />}
+        {nftJson && <SellModel tokenId={tokenId} nftJson={nftJson} isOpen={isOpen} onClose={onClose} src={imgSrc} />}
     </Stack>
 
 }

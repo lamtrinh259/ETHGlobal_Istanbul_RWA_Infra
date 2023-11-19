@@ -1,14 +1,14 @@
 import type { BigNumberish } from "ethers";
 
 export type TokenInfo = {
-  amount: BigNumberish;
-  fees: BigNumberish;
-  tokenAddress: string;
+  amount: BigNumberish; // input by user
+  fees: BigNumberish; // 0
+  tokenAddress: string; // ethers.constants.AddressZero
 };
 
 export type NFTInfo = {
-  nftAddress: string;
-  tokenId: BigNumberish;
+  nftAddress: string; // useCurrentContract
+  tokenId: BigNumberish; // 
 };
 
 export type Offer = {

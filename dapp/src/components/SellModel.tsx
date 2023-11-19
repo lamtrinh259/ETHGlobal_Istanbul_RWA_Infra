@@ -2,10 +2,30 @@ import { Text, Box, HStack, Img, Modal, ModalBody, ModalCloseButton, ModalConten
 import { FaTag } from "react-icons/fa"
 import { NFTJson } from "../store/nftJson"
 import { useState } from "react";
+import { listProduct } from "../lib/marketplace";
+import { useCurrentContract } from "../hooks/useCurrentContract";
+import { useNetwork, usePublicClient, useWalletClient } from "wagmi";
+import { ethers } from "ethers";
 
-export const SellModel = ({ nftJson, src, isOpen, onClose }: { nftJson: NFTJson, src: string, isOpen: boolean, onClose: () => void }) => {
+export const SellModel = ({ tokenId, nftJson, src, isOpen, onClose }: { nftJson: NFTJson, src: string, isOpen: boolean, onClose: () => void, tokenId: number }) => {
     const [amount, setAmount] = useState<number | undefined>(undefined);
     const price = 2;
+    const contract = useCurrentContract();
+    const network = useNetwork();
+    const { data: client } = useWalletClient();
+    const publicClient = usePublicClient();
+    const [isLoading, setIsLoading] = useState(false);
+    const list = async () => {
+        await listProduct(
+            { amount: tokenId, fees: 0, tokenAddress: ethers.constants.AddressZero },
+            { nftAddress: contract, tokenId: tokenId },
+            0,
+            network.chain?.id!,
+            client!,
+            publicClient
+        )
+    }
+
     return <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg="#E7E8FF">
@@ -93,7 +113,12 @@ export const SellModel = ({ nftJson, src, isOpen, onClose }: { nftJson: NFTJson,
             </ModalBody>
 
             <ModalFooter>
-                <Button w={"full"} mr={3} onClick={onClose}>
+                <Button isLoading={isLoading} w={"full"} mr={3} onClick={async () => {
+                    setIsLoading(true);
+                    await list();
+                    onClose()
+                    setIsLoading(false);
+                }}>
                     Complete Listing
                 </Button>
             </ModalFooter>

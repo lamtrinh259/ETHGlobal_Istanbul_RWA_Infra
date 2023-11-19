@@ -44,7 +44,7 @@ const Assets: NextPage = () => {
 
                     <Flex gap={12} flexWrap="wrap" justifyContent="center">
                         {
-                            assets.map((asset, i) => <ItemCard metadata={asset} key={i} />)
+                            assets.map((asset, i) => <ItemCard tokenId={i+1} metadata={asset} key={i} />)
                         }
                         {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
                             (i) => <ItemCard key={i + 10086} />)} */}
